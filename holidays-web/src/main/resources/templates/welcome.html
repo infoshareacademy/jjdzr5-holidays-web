@@ -55,7 +55,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="dayHolidays : ${dayOff}">
+        <tr th:each="dayHolidays : ${holiday}">
             <td th:text="${dayHolidays.name}"></td>
             <td th:text="${dayHolidays.description}" ></td>
             <td th:text="${dayHolidays.country}"></td>

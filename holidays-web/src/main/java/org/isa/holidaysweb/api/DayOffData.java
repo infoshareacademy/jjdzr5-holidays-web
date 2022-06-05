@@ -2,6 +2,7 @@ package org.isa.holidaysweb.api;
 
 import org.isa.holidaysweb.domain.DayOff;
 import org.isa.holidaysweb.gson.JsonReader;
+import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
 
