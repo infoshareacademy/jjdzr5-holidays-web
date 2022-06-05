@@ -15,18 +15,21 @@ import java.util.ArrayList;
 @Controller
 public class HolidaysController {
 
-    private final ArrayList<DayOff> holiday = DayOffData.getDayOffList();
-
+    public static ArrayList<DayOff> holiday = DayOffData.getDayOffList();
     @GetMapping("/welcome")
     public String welcomeHolidays(Model model) {
-        model.addAttribute("holiday", holiday);
+        DayOff dayOff = new DayOff();
+        model.addAttribute("dayOff", dayOff);
+        model.addAttribute("holiday",  holiday);
         return "welcome";
     }
 
     @PostMapping(value = "/welcome", produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE, headers = "content-type=application/x-www-form-urlencoded")
-        public String welcomeHolidaysPost(@ModelAttribute(value = "holiday") Model model, DayOff dayOff) {
-            model.addAttribute("holiday",  holiday.add(dayOff));
+        public String welcomeHolidaysPost(@ModelAttribute(value = "holiday") Model model) {
+            DayOff dayOff = new DayOff();
+            model.addAttribute("dayOff", dayOff);
+            model.addAttribute("holiday",  holiday);
             return "welcome";
         }
 

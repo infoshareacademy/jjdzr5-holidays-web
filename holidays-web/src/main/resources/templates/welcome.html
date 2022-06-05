@@ -55,14 +55,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="dayHolidays : ${holiday}">
+        <tr th:each="dayHolidays : ${dayOff}">
             <td th:text="${dayHolidays.name}"></td>
-            <td th:text="${dayHolidays.getDescription()}" ></td>
-            <td th:text="${dayHolidays.getCountry()}"></td>
-            <td th:text="${dayHolidays.getDate()}"></td>
-            <td th:text="${dayHolidays.getType()}" ></td>
-            <td th:text="${dayHolidays.getLocations()}" ></td>
-            <td th:text="${dayHolidays.getStates()}" ></td>
+            <td th:text="${dayHolidays.description}" ></td>
+            <td th:text="${dayHolidays.country}"></td>
+            <td th:text="${dayHolidays.date}"></td>
+            <td th:text="${dayHolidays.type}" ></td>
+            <td th:text="${dayHolidays.locations}" ></td>
+            <td th:text="${dayHolidays.states}" ></td>
         </tr>
         </tbody>
     </table>
