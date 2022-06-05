@@ -8,19 +8,19 @@ body, html {
     margin: 0;
 }
 .background-radial-gradient {
-    background-color: hsl(218, 41%, 15%);
-    background-image: radial-gradient(650px circle at 0% 0%,
-    hsl(218, 41%, 35%) 15%,
-    hsl(218, 41%, 30%) 35%,
-    hsl(218, 41%, 20%) 75%,
-    hsl(218, 41%, 19%) 80%,
-    transparent 100%),
-    radial-gradient(1250px circle at 100% 100%,
-            hsl(218, 41%, 45%) 15%,
-            hsl(218, 41%, 30%) 35%,
-            hsl(218, 41%, 20%) 75%,
-            hsl(218, 41%, 19%) 80%,
-            transparent 100%);
+    background: rgb(4, 46, 100);
+    background: -moz-linear-gradient(0deg, rgba(51, 204, 255, 1) 0%, rgba(22, 147, 175, 1) 35%, rgba(41, 100, 133, 1) 75%);
+    background: -webkit-linear-gradient(0deg, rgba(51, 204, 255, 1) 0%, rgba(22, 147, 175, 1) 35%, rgba(41, 100, 133, 1) 75%);
+    background: linear-gradient(0deg, rgba(51, 204, 255, 1) 0%, rgba(22, 147, 175, 1) 35%, rgba(41, 100, 133, 1) 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#33ccff", endColorstr="#296485", GradientType=1);
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -ms-background-size: cover;
 }
 
 #radius-shape-1 {
@@ -45,7 +45,7 @@ body, html {
 .bg-glass {
     background-color: hsla(0, 0%, 100%, 0.9) !important;
     backdrop-filter: saturate(200%) blur(25px);
-    margin: 0 0 0 0px;
+    margin: 0 0 0 0;
 }
 .index-10 {
     z-index: 10;

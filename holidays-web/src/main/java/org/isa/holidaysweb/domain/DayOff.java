@@ -1,6 +1,7 @@
 package org.isa.holidaysweb.domain;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 
@@ -17,7 +18,7 @@ public class DayOff {
     private String description;
     private Map<String, String> country;
     private DateHoliday date;
-    private String[] type;
+    private ArrayList type;
     private String locations;
     private String states;
 
@@ -53,11 +54,11 @@ public class DayOff {
         this.date = date;
     }
 
-    public String[] getType() {
+    public ArrayList getType() {
         return type;
     }
 
-    public void setType(String[] type) {
+    public void setType(ArrayList type) {
         this.type = type;
     }
 

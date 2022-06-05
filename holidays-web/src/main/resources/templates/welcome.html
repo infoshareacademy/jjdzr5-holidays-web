@@ -6,9 +6,8 @@
     <link th:href="@{./css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{./css/main.css}" rel="stylesheet" type="text/css">
 </head>
-<body class="background-radial-gradient overflow-hidden">
+<body class="background-radial-gradient">
 <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-<div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 <div class="container padding-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -51,15 +50,15 @@
             <th scope="col">Date</th>
             <th scope="col">Type</th>
             <th scope="col">Locations</th>
-            <th scope="col">Sates</th>
+            <th scope="col">States</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="dayHolidays : ${holiday}">
             <td th:text="${dayHolidays.name}"></td>
             <td th:text="${dayHolidays.description}" ></td>
-            <td th:text="${dayHolidays.country}"></td>
-            <td th:text="${dayHolidays.date}"></td>
+            <td th:text="${dayHolidays.country.name}"></td>
+            <td th:text="${dayHolidays.date.iso}"></td>
             <td th:text="${dayHolidays.type}" ></td>
             <td th:text="${dayHolidays.locations}" ></td>
             <td th:text="${dayHolidays.states}" ></td>

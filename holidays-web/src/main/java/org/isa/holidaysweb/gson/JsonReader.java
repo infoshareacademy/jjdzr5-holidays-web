@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class JsonReader {
 
     private static final Logger LOGGER = Logger.getLogger(JsonReader.class.getName());
-    private static final Path FILE_JSON = Paths.get("/home/zbigniew/IdeaProjects/jjdzr5-holidays-web/holidays-web/src/main/resources/dayOff.json");
+    private static final Path FILE_JSON = Paths.get("holidays-web","src","main", "resources", "dayOff.json");
 
     private DaysOff daysOff;
     private ArrayList<DayOff> dayOffList;
