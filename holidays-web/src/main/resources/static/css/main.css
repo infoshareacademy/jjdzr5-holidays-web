@@ -1,0 +1,142 @@
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+}
+.my-zk {
+    margin-top: -40px;
+}
+.background-radial-gradient {
+    background: rgb(4, 46, 100);
+    background: -moz-linear-gradient(0deg, rgba(51, 204, 255, 1) 0%, rgba(22, 147, 175, 1) 35%, rgba(41, 100, 133, 1) 75%);
+    background: -webkit-linear-gradient(0deg, rgba(51, 204, 255, 1) 0%, rgba(22, 147, 175, 1) 35%, rgba(41, 100, 133, 1) 75%);
+    background: linear-gradient(0deg, rgba(51, 204, 255, 1) 0%, rgba(22, 147, 175, 1) 35%, rgba(41, 100, 133, 1) 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#33ccff", endColorstr="#296485", GradientType=1);
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -ms-background-size: cover;
+}
+
+#radius-shape-1 {
+    height: 220px;
+    width: 220px;
+    top: -60px;
+    left: -130px;
+    background: radial-gradient(#44006b, #ad1fff);
+    overflow: hidden;
+}
+
+#radius-shape-2 {
+    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+    bottom: -60px;
+    right: -110px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(#44006b, #ad1fff);
+    overflow: hidden;
+}
+
+.bg-glass {
+    background-color: hsla(0, 0%, 100%, 0.9) !important;
+    backdrop-filter: saturate(200%) blur(25px);
+    margin: 0 0 0 0;
+}
+.index-10 {
+    z-index: 10;
+}
+.style-1 {
+    color: hsl(218, 81%, 95%);
+}
+.style-2 {
+    color: hsl(218, 81%, 75%);
+}
+.style-3 {
+    color: hsl(218, 81%, 85%);
+}
+.float-zk {
+    margin-left: 85%!important;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+    font-weight: normal;
+}
+
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input {
+    margin-top: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin button {
+    margin-top: 10px;
+}
+
+.has-error {
+    color: red
+}
+.padding-top {
+    margin-top: -50px;
+}
+.padding-bottom {
+    margin-bottom: 150px;
+}
+.padding-10 {
+    padding: 10px;
+}
+a:hover {
+    text-decoration: none;
+}
+a:focus {
+    text-decoration: none;
+}
+.btn-width-300 {
+    width: 300px;
+}
+.text-warning-my {
+    --bs-text-opacity: 1;
+    color: rgb(232, 94, 17);
+    text-decoration: none;
+    padding: 7px;
+}
+
+button.text-warning-my a:hover {
+    --bs-text-opacity: 1;
+    background: rgb(232, 94, 17);
+    text-decoration: none;
+    color: rgba(255, 255, 255, 1.0);
+    padding: 7px;
+}
