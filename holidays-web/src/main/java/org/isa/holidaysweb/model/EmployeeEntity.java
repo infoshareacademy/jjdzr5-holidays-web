@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -35,8 +36,8 @@ public class EmployeeEntity {
     @NotNull(message = "Department is required")
     private String department;
 
-    @Column(name="created_date", nullable = false, updatable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss", iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDate registry;
+    @Column(name="created_date", updatable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss" , iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime registryEmployee;
 
 }

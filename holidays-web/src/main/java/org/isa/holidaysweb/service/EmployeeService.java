@@ -46,7 +46,7 @@ public class EmployeeService {
 				newEntity.setDepartment(entity.getDepartment());
 				newEntity.setFirstName(entity.getFirstName());
 				newEntity.setLastName(entity.getLastName());
-				newEntity.setRegistry(entity.getRegistry());
+				newEntity.setRegistryEmployee(entity.getRegistryEmployee());
 				newEntity = repository.save(newEntity);
 
 				return newEntity;

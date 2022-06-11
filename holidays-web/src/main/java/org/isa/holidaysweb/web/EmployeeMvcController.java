@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +28,7 @@ public class EmployeeMvcController {
 		List<EmployeeEntity> list = service.getAllEmployees();
 		model.addAttribute("employees", list);
 		if(list.size() > 0) {
-			model.addAttribute("registry", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+			model.addAttribute("registry", LocalDateTime.now());
 		}
 		return "list-employees";
 	}
