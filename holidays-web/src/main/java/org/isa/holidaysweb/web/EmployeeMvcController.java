@@ -51,7 +51,6 @@ public class EmployeeMvcController {
 		service.createOrUpdateEmployee(employee);
 		employee.setRegistryEmployee(LocalDateTime.now());
 		model.addAttribute("employee", employee.getRegistryEmployee());
-		System.out.println(employee.toString());
 		return "redirect:/";
 	}
 }
