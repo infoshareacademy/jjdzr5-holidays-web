@@ -36,8 +36,9 @@ public class EmployeeEntity {
     @NotNull(message = "Department is required")
     private String department;
 
-    @Column(name="created_date", updatable = false)
+    @Column(name="created_date")
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss" , iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime registryEmployee;
+
 
 }

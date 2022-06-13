@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -27,9 +26,6 @@ public class EmployeeMvcController {
 	public String getAllEmployees(Model model) {
 		List<EmployeeEntity> list = service.getAllEmployees();
 		model.addAttribute("employees", list);
-		if(list.size() > 0) {
-			model.addAttribute("registry", LocalDateTime.now());
-		}
 		return "list-employees";
 	}
 
@@ -53,7 +49,9 @@ public class EmployeeMvcController {
 	@RequestMapping(path = "/createEmployee", method = RequestMethod.POST)
 	public String createOrUpdateEmployee(EmployeeEntity employee, Model model) {
 		service.createOrUpdateEmployee(employee);
-		model.addAttribute("registry", LocalDateTime.now());
+		employee.setRegistryEmployee(LocalDateTime.now());
+		model.addAttribute("employee", employee.getRegistryEmployee());
+		System.out.println(employee.toString());
 		return "redirect:/";
 	}
 }

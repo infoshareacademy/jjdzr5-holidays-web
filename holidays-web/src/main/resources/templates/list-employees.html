@@ -59,7 +59,9 @@
                                 <td th:text="${employee.firstName}"></td>
                                 <td th:text="${employee.lastName}"></td>
                                 <td th:text="${employee.department}"></td>
-                                <td th:text="${#temporals.format(registry, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                                <td th:text="${employee.registryEmployee}"></td>
+
+
                                 <td>
                                     <a th:href="@{/edit/{id}(id=${employee.id})}" class="btn btn-primary">
                                         UPDATE
