@@ -1,6 +1,5 @@
 package org.isa.holidaysweb.web;
 
-
 import lombok.SneakyThrows;
 import org.isa.holidaysweb.exception.RecordException;
 import org.isa.holidaysweb.model.EmployeeEntity;
@@ -8,10 +7,7 @@ import org.isa.holidaysweb.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +17,6 @@ public class EmployeeMvcController {
 	@Autowired
 	EmployeeService service;
 
-	@SneakyThrows
 	@RequestMapping
 	public String getAllEmployees(Model model) {
 		List<EmployeeEntity> list = service.getAllEmployees();
@@ -29,17 +24,17 @@ public class EmployeeMvcController {
 		return "list-employees";
 	}
 
-	@RequestMapping(path = {"/edit", "/edit/{id}"})
-	public String editEmployeeById(Model model, @PathVariable("id") Optional<Long> id) throws RecordException {
+	@SneakyThrows
+	@RequestMapping(path = {"/add-edit-employee", "/update-employee/{id}"}, method = {RequestMethod.GET, RequestMethod.POST})
+	public String editEmployeeById(Model model, @PathVariable("id") Optional<Long> id) {
 		if (id.isPresent()) {
-			EmployeeEntity entity = service.getEmployeeById(id.get());
-			model.addAttribute("employee", entity);
+			model.addAttribute("employee", service.getEmployeeById(id.get()));
 		} else {
 			model.addAttribute("employee", new EmployeeEntity());
 		}
 		return "add-edit-employee";
 	}
-	
+
 	@RequestMapping(path = "/delete/{id}")
 	public String deleteEmployeeById(Model model, @PathVariable("id") Long id) throws RecordException {
 		service.deleteEmployeeById(id);
@@ -49,8 +44,6 @@ public class EmployeeMvcController {
 	@RequestMapping(path = "/createEmployee", method = RequestMethod.POST)
 	public String createOrUpdateEmployee(EmployeeEntity employee, Model model) {
 		service.createOrUpdateEmployee(employee);
-		employee.setRegistryEmployee(LocalDateTime.now());
-		model.addAttribute("employee", employee.getRegistryEmployee());
 		return "redirect:/";
 	}
 }
