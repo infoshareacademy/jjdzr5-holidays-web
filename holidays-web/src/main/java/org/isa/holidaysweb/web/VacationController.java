@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.naming.Binding;
+import javax.validation.Valid;
 
 @Controller
 public class VacationController {
@@ -30,7 +31,7 @@ public class VacationController {
     }
 
     @PostMapping("/addNewVacation")
-    public String addNewVacation(@ModelAttribute Vacation vacation, BindingResult result, Model model) {
+    public String addNewVacation(@ModelAttribute @Valid Vacation vacation, BindingResult result, Model model) {
         System.out.println("Adding new vacation to list...");
         if (result.hasErrors()) {
             System.out.println("Invalid dates");

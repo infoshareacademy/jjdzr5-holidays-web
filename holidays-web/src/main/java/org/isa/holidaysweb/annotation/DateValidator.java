@@ -16,11 +16,15 @@ public class DateValidator implements ConstraintValidator<ValidDates, Vacation.D
     public boolean isValid(Vacation.DatesRange datesRange, ConstraintValidatorContext constraintValidatorContext) {
         LocalDate dateFrom = datesRange.getDateFrom();
         LocalDate dateTo = datesRange.getDateTo();
-        if (dateFrom.isBefore(dateTo)) {
+
+        if (dateFrom.isBefore(LocalDate.now())) {
+            return false;
+        } else if (dateFrom.isBefore(dateTo) || dateFrom.isEqual(dateTo)) {
             return true;
         } else {
             return false;
         }
+
     }
 
 }

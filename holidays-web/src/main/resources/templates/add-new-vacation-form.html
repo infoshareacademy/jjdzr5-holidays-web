@@ -38,11 +38,6 @@
                 <form th:action="@{/addNewVacation}" th:object="${vacation}" method="post">
                     <div class="row">
                         <div class="form-group col-md-8">
-                            <label for="test" class="col-form-label">Type some text</label>
-                            <input type="text" id="test" required th:field="*{test}">
-                            <span th:if="${#fields.hasErrors('datesRange')}" th:errors="*{test}" />
-                        </div>
-                        <div class="form-group col-md-8">
                             <label for="date-from" class="col-form-label">Select start date</label>
                             <input type="date" id="date-from" required th:field="*{datesRange.dateFrom}">
                             <span th:if="${#fields.hasErrors('datesRange')}" th:errors="*{datesRange}" />
