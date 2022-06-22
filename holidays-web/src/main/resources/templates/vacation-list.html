@@ -50,8 +50,8 @@
               </thead>
               <tbody>
               <tr th:each="vacation : ${vacationList}">
-                <td th:text="${vacation.dateFrom}"></td>
-                <td th:text="${vacation.dateTo}"></td>
+                <td th:text="${vacation.datesRange.dateFrom}"></td>
+                <td th:text="${vacation.datesRange.dateTo}"></td>
                 <td>
                   <a class="btn btn-primary">
                     UPDATE
