@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.naming.Binding;
 import javax.validation.Valid;
@@ -26,19 +28,25 @@ public class VacationController {
 
     @RequestMapping("/addNewVacation")
     public String addNewVacationForm(Model model) {
-        model.addAttribute("vacation", new Vacation());
+        if(!model.containsAttribute("vacation")) {
+            model.addAttribute("vacation", new Vacation());
+        }
         return "add-new-vacation-form";
     }
 
     @PostMapping("/addNewVacation")
-    public String addNewVacation(@ModelAttribute @Valid Vacation vacation, BindingResult result, Model model) {
-        System.out.println("Adding new vacation to list...");
+    public RedirectView addNewVacation(@ModelAttribute @Valid Vacation vacation,
+                                       BindingResult result,
+                                       RedirectAttributes redirectAttributes,
+                                       Model model) {
         if (result.hasErrors()) {
-            System.out.println("Invalid dates");
-            return ("add-new-vacation-form");
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vacation", result);
+            redirectAttributes.addFlashAttribute("vacation", vacation);
+            return new RedirectView("/addNewVacation");
         }
         vacationService.addNewVacation(vacation);
         model.addAttribute("vacationList", vacationService.getVacationList());
-        return "vacation-list";
+        return new RedirectView("/vacationList");
     }
+
 }

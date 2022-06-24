@@ -66,6 +66,16 @@
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>2.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.vandermeer</groupId>
+            <artifactId>asciitable</artifactId>
+            <version>0.3.2</version>
+        </dependency>
     </dependencies>
 
     <build>

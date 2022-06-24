@@ -40,5 +40,7 @@ public class EmployeeEntity {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss" , iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime registryEmployee = LocalDateTime.now();
 
+    private Integer availableHoliday;
+
 
 }
