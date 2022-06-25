@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -22,12 +21,12 @@ public class EmployeeEntity {
     private Long id;
     
     @Column(name="first_name")
-    @NotEmpty(message = "First name is required")
+    @NotNull(message = "First name is required")
     @Size(min = 3, max = 50, message = "First name must be between 3 and 20 characters")
     private String firstName;
     
     @Column(name="last_name")
-    @NotEmpty(message = "Last name is required")
+    @NotNull(message = "Last name is required")
     @Size(min = 3, max = 50, message = "Last name must be between 3 and 20 characters")
     private String lastName;
     
