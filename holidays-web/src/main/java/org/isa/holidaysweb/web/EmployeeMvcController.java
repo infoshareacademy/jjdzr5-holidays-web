@@ -46,18 +46,18 @@ public class EmployeeMvcController {
 		service.deleteEmployeeById(id);
 		return "redirect:/";
 	}
-	@GetMapping(value = {"/createEmployee"})
-	public String createEmployee(EmployeeEntity employee) {
+	@GetMapping("/createEmployee")
+	public String createEmployee(@Valid EmployeeEntity employee) {
 		return "add-edit-employee";
 	}
+
 	@PostMapping(value = {"/createEmployee"})
-	public String createOrUpdateEmployee(@Valid EmployeeEntity employee, BindingResult bindingResult, Model model) {
+	public String createOrUpdateEmployee(@ModelAttribute @Valid EmployeeEntity employee, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "add-edit-employee";
 		}
 		service.createOrUpdateEmployee(employee);
 		repository.save(employee);
-		model.addAttribute("employee", repository.findAll());
 		return "redirect:/";
 	}
 }
