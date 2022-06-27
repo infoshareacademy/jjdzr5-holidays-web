@@ -17,7 +17,7 @@ public class EmployeeService {
 	EmployeeRepository repository;
 	
 	public List<EmployeeEntity> getAllEmployees() {
-		List<EmployeeEntity> result = (List<EmployeeEntity>) repository.findAll();
+		List<EmployeeEntity> result = repository.findAll();
 		if(result.size() > 0) {
 			return result;
 		} else {

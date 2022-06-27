@@ -20,9 +20,6 @@ public class EmployeeMvcController {
 	@Autowired
 	EmployeeService service;
 
-	@Autowired
-	private EmployeeRepository repository;
-
 	@RequestMapping
 	public String getAllEmployees(Model model) {
 		List<EmployeeEntity> list = service.getAllEmployees();
@@ -46,18 +43,18 @@ public class EmployeeMvcController {
 		service.deleteEmployeeById(id);
 		return "redirect:/";
 	}
-	@GetMapping("/createEmployee")
-	public String createEmployee(@Valid EmployeeEntity employee) {
+	@GetMapping("/add")
+	public String showAddEmployeeForm(EmployeeEntity employee) {
 		return "add-edit-employee";
 	}
 
-	@PostMapping(value = {"/createEmployee"})
-	public String createOrUpdateEmployee(@ModelAttribute @Valid EmployeeEntity employee, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
+	@PostMapping("/add")
+	public String addEmployee(@Valid EmployeeEntity employee, BindingResult result, Model model) {
+		model.addAttribute("employee", employee);
+		if (result.hasErrors()) {
 			return "add-edit-employee";
 		}
 		service.createOrUpdateEmployee(employee);
-		repository.save(employee);
 		return "redirect:/";
 	}
 }
