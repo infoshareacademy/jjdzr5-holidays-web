@@ -7,9 +7,9 @@
     <link th:href="@{./css/main.css}" rel="stylesheet" type="text/css">
 </head>
 
-<body class="background-radial-gradient overflow-hidden">
+<body class="background-radial-gradient">
 <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-<div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+<div class="shape-3 position-absolute shadow-5-strong"></div>
 <div class="container my-zk">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -39,18 +39,14 @@
                         <div class="form-group col-md-8">
                             <label for="firstName" class="col-form-label">First Name</label>
                             <input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="First Name"  />
-                            <ul>
-                                <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}" class="error" />
-                            </ul>
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
                         </div>
                         <div class="padding-10"></div>
                         <div class="form-group col-md-8">
                             <label for="lastName" class="col-form-label">Last Name</label>
                             <input type="text" th:field="*{lastName}" class="form-control"
                                    id="lastName" placeholder="Last Name" />
-                            <ul>
-                                <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}" class="error" />
-                            </ul>
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
                         </div>
                         <div class="padding-10"></div>
                         <div class="form-group col-md-8">
@@ -63,13 +59,12 @@
                                         th:value="${department}">
                                 </option>
                             </select>
-                            <ul>
-                                <li th:each="err : ${#fields.errors('department')}" th:text="${err}" class="error" />
-                            </ul>
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></div>
                         </div>
                         <div class="padding-10"></div>
                         <div class="col-md-6">
-                            <input type="submit" class="btn btn-primary" value=" Submit " />
+                            <input th:type="submit" class="btn btn-primary" value=" Submit " />
+                            <input th:type="reset" class="btn btn-danger" value=" Reset " />
                         </div>
                         <input type="hidden" id="id" th:field="*{id}" />
                 </form>

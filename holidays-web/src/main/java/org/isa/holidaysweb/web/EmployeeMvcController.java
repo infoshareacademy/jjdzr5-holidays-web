@@ -28,7 +28,7 @@ public class EmployeeMvcController {
 	}
 
 	@SneakyThrows
-	@RequestMapping(path = {"/add-edit-employee", "/update-employee/{id}"}, method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(path = {"/add-edit-employee", "/update-employee/{id}"})
 	public String editEmployeeById(Model model, @PathVariable("id") Optional<Long> id) {
 		if (id.isPresent()) {
 			model.addAttribute("employee", service.getEmployeeById(id.get()));
@@ -43,15 +43,15 @@ public class EmployeeMvcController {
 		service.deleteEmployeeById(id);
 		return "redirect:/";
 	}
-	@GetMapping("/add")
-	public String showAddEmployeeForm(EmployeeEntity employee) {
+	@GetMapping(value = { "/add"})
+	public String addEmployee(@ModelAttribute EmployeeEntity employee) {
 		return "add-edit-employee";
 	}
 
-	@PostMapping("/add")
-	public String addEmployee(@Valid EmployeeEntity employee, BindingResult result, Model model) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addEmployee(@Valid @ModelAttribute("employee") EmployeeEntity employee, BindingResult bindingResult, Model model) {
 		model.addAttribute("employee", employee);
-		if (result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return "add-edit-employee";
 		}
 		service.createOrUpdateEmployee(employee);

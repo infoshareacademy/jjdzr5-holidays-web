@@ -32,6 +32,7 @@
     <h3 class="style-2"> List Employee</h3>
     <div class="card">
         <div class="card-body">
+            <!--/*@thymesVar id="employees" type="text"*/-->
             <div th:switch="${employees}" class="container my-2">
                 <p class="my-2">
                     <a th:href="@{/add-edit-employee}" class="btn btn-primary"><i> Add Employee </i></a>
@@ -59,8 +60,6 @@
                                 <td th:text="${employee.lastName}"></td>
                                 <td th:text="${employee.department}"></td>
                                 <td th:text="${#temporals.format(employee.registryEmployee, 'dd/MM/yyyy HH:mm:ss')}"></td>
-
-
                                 <td>
                                     <a th:href="@{/update-employee/{id}(id=${employee.id})}" class="btn btn-primary">
                                         UPDATE
