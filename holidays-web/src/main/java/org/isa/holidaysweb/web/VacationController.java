@@ -6,18 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.naming.Binding;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Map;
 
 @Controller
 public class VacationController {
@@ -61,16 +56,15 @@ public class VacationController {
     }
     @RequestMapping ("/summary")
     public String summary(@ModelAttribute("validatedVacation") Vacation vacation,
-                          Model model,
-                          RedirectAttributes redirectAttributes) {
+                          Model model) {
         System.out.println("Inside summary method: " + vacation);
-        redirectAttributes.addFlashAttribute("confirmedVacation", vacation);
-        return "summary";
+        model.addAttribute("validatedVacation", vacation);
+        System.out.println("Added attribute to model: " + model.getAttribute("validatedVacation"));
+        return "summary-view";
     }
 
     @PostMapping("/summary")
-    public String confirmVacation(Model model) {
-        Vacation vacation = (Vacation) model.getAttribute("confirmedVacation");
+    public String confirmVacation(@ModelAttribute Vacation vacation, Model model) {
         System.out.println(vacation);
         vacationService.addNewVacation(vacation);
         model.addAttribute("vacationList", vacationService.getVacationList());
