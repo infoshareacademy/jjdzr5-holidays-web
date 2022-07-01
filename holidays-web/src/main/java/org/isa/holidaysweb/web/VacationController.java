@@ -70,4 +70,9 @@ public class VacationController {
         model.addAttribute("vacationList", vacationService.getVacationList());
         return "vacation-list";
     }
+
+    @RequestMapping("/nothingToDeduct")
+    public String nothingToDeduct() {
+        return "nothing-to-deduct";
+    }
 }
