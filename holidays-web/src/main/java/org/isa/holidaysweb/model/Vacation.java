@@ -10,7 +10,7 @@ import org.apache.tomcat.jni.Local;
 import org.isa.holidaysweb.annotation.ValidDates;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,20 +19,31 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
-
+@Entity
 @Data
 @NoArgsConstructor
+@Table(name = "vacation")
 public class Vacation {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private boolean approved;
-    private Long employeeId;
+    @OneToOne
+    @JoinColumn(name = "dates_range_ID")
     @ValidDates
     private DatesRange datesRange;
-    private Integer numberOfdays;
+    private Integer numberOfDays;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private EmployeeEntity employee;
 
+    @Entity
     @Data
     public static class DatesRange {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate dateFrom;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -48,7 +59,7 @@ public class Vacation {
                 count--;
             }
         }
-        this.numberOfdays = count;
+        this.numberOfDays = count;
         return count;
     }
 

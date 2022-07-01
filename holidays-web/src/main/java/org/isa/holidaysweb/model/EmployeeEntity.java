@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -41,6 +42,8 @@ public class EmployeeEntity {
     private LocalDateTime registryEmployee = LocalDateTime.now();
 
     private Integer availableHoliday;
+    @OneToMany
+    private List<Vacation> vacationList;
 
 
 }
