@@ -121,13 +121,17 @@ a:focus {
     text-decoration: none;
 }
 .btn-width-300 {
-    width: 300px;
+    width: 430px;
+    padding-top: 10px;
 }
 .text-warning-my {
     --bs-text-opacity: 1;
     color: rgb(232, 94, 17);
     text-decoration: none;
     padding: 7px;
+    float: right;
+    margin-top: -10px;
+    margin-right: 5px;
 }
 
 button.text-warning-my a:hover {
@@ -136,4 +140,7 @@ button.text-warning-my a:hover {
     text-decoration: none;
     color: rgba(255, 255, 255, 1.0);
     padding: 7px;
+    float: right;
+    margin-top: -10px;
+    margin-right: 5px;
 }

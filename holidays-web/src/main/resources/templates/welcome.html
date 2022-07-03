@@ -35,7 +35,7 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
 
-            <h5 class="style-1 btn-width-300">Welcome <span sec:authentication="name"></span> |
+            <h5 class="style-1 btn-width-300">Welcome <span class="style-3" sec:authentication="name"></span>
               <button class ="text-warning-my" type="button" onclick="document.forms['logoutForm'].submit()">Logout</button></h5>
         </div>
     </nav>
