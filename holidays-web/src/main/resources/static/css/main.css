@@ -124,6 +124,9 @@ a:focus {
     width: 430px;
     padding-top: 10px;
 }
+.btn-width-301 {
+    width: 300px;
+}
 .text-warning-my {
     --bs-text-opacity: 1;
     color: rgb(232, 94, 17);
