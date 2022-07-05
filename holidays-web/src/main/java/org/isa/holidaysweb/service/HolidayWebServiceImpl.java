@@ -24,7 +24,7 @@ public class HolidayWebServiceImpl implements HolidayWebService {
     public boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || AnonymousAuthenticationToken.class.
-            isAssignableFrom(authentication.getClass())) {
+                isAssignableFrom(authentication.getClass())) {
             return false;
         }
         return authentication.isAuthenticated();
@@ -42,4 +42,5 @@ public class HolidayWebServiceImpl implements HolidayWebService {
             logger.debug(String.format("Auto login %s successfully!", username));
         }
     }
+
 }

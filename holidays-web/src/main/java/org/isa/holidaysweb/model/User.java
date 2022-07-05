@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -24,6 +25,10 @@ public class User {
     private String username;
 
     private String password;
+
+    private String departments;
+
+    private LocalDateTime registrationDate = LocalDateTime.now();
 
     @Transient
     private String passwordConfirm;

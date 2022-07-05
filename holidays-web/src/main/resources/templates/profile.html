@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <title>Welcome</title>
+    <title>User Profile</title>
     <link th:href="@{./css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{./css/main.css}" rel="stylesheet" type="text/css">
 </head>
@@ -25,7 +25,7 @@
                         <a class="nav-link" href="#" >Reserve Holiday</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/profile}">Profile</a>
+                        <a class="nav-link" th:href="@{/profile}" th:text="${user.username}">Profile</a>
                     </li>
                 </ul>
             </div>
@@ -36,30 +36,30 @@
             </form>
 
             <h5 class="style-1 btn-width-300">Welcome : <span class="style-3" sec:authentication="name"></span>
-              <button class ="text-warning-my" type="button" onclick="document.forms['logoutForm'].submit()">Logout</button></h5>
+                <button class ="text-warning-my" type="button" onclick="document.forms['logoutForm'].submit()">Logout</button></h5>
         </div>
     </nav>
     <div class="padding-10"></div>
-
-    <table class="table table-bordered table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Date</th>
-            <th scope="col">Type</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="dayHolidays : ${holiday}">
-            <td th:text="${dayHolidays.name}"></td>
-            <td th:text="${dayHolidays.description}" ></td>
-            <td th:text="${dayHolidays.date.iso}"></td>
-            <td th:text="${dayHolidays.type}" ></td>
-        </tr>
-        </tbody>
-    </table>
-
+    <!--/*@thymesVar id="employees" type="text"*/-->
+    <h2>Profile</h2>
+    <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+        <div class="card-header">
+            <div th:each="users : ${username}">
+                <h5 class="card-title style-4" th:text="${username.firstNameAndSurname}"></h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title style-1">Department</h5>
+            <div th:each="users : ${username}">
+                <p class="card-text style-4" th:text="${username.departments}"></p>
+            </div>
+            <div class="padding-10"></div>
+            <h5 class="card-title style-1">Date Registry</h5>
+            <div th:each="users : ${username}">
+                <p class="card-text style-4" th:text="${#temporals.format(username.registrationDate, 'dd/MM/yyyy HH:mm:ss')}"></p>
+            </div>
+        </div>
+    </div>
     <div class="padding-bottom"></div>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
@@ -70,8 +70,9 @@
       </svg></a> || Holiday (c) 2022</span>
         </div>
     </nav>
-  </div>
-  <script th:src="@{/js/bootstrap.min.js}"></script>
+</div>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>
 </html>
+

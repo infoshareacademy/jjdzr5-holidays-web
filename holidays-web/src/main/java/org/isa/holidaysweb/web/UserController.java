@@ -56,4 +56,10 @@ public class UserController {
 
         return "login";
     }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String profile(Model model, User username) {
+        model.addAttribute("username", username);
+        return "profile";
+    }
 }
