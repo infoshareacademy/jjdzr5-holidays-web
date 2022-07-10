@@ -37,24 +37,7 @@
     </nav>
     <div class="padding-10"></div>
 
-    <table class="table table-bordered table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Date</th>
-            <th scope="col">Type</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="dayHolidays : ${holiday}">
-            <td th:text="${dayHolidays.name}"></td>
-            <td th:text="${dayHolidays.description}" ></td>
-            <td th:text="${dayHolidays.date.iso}"></td>
-            <td th:text="${dayHolidays.type}" ></td>
-        </tr>
-        </tbody>
-    </table>
+    <h1>Panel Administracyjny</h1>
 
     <div class="padding-bottom"></div>
     <nav class="navbar navbar-dark bg-dark">

@@ -24,7 +24,7 @@
                           <a class="nav-link" th:href="@{/login}"> Log In</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" th:href="@{/registration}">Create account</a>
+                          <a class="nav-link" th:href="@{/signup}">Create account</a>
                       </li>
                   </ul>
               </div>
@@ -33,17 +33,12 @@
       <div class="padding-10"></div>
     </div>
     <div class="container">
-        <form method="POST" class="form-signin" th:object="${userForm}" th:action="@{/registration}">
+        <form method="POST" class="form-signin" th:object="${user}" th:action="@{/new_account}">
             <h2 class="form-signin-heading text-info">Create your account</h2>
             <div class="form-group">
-                <input type="text" th:field="*{firstNameAndSurname}" class="form-control" placeholder="First Name and Surname"
+                <input type="text" th:field="*{userName}" class="form-control" placeholder="Username"
                        autofocus="true">
-                <span class="has-error" th:if="${#fields.hasErrors('firstNameAndSurname')}" th:errors="*{firstNameAndSurname}"></span>
-            </div>
-            <div class="form-group">
-                <input type="text" th:field="*{username}" class="form-control" placeholder="Username"
-                       autofocus="true">
-                <span class="has-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                <span class="has-error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
             </div>
 
             <div class="form-group">
@@ -52,9 +47,8 @@
             </div>
 
             <div class="form-group">
-                <input type="password" th:field="*{passwordConfirm}" class="form-control"
+                <input type="password" class="form-control" id="repeat_password"
                             placeholder="Confirm your password">
-                <span class="has-error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
             </div>
 
             <button class="btn btn-lg btn-primary btn-block btn-width-301" type="submit">Submit</button>

@@ -24,7 +24,7 @@
                             <a class="nav-link" th:href="@{/login}"> Log In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/registration}">Create account</a>
+                            <a class="nav-link" th:href="@{/signup}">Create account</a>
                         </li>
                     </ul>
                 </div>
@@ -42,13 +42,13 @@
                    autofocus="true"/>
 
             <input name="password" type="password" class="form-control" placeholder="Password"/>
-            <span class="has-error" th:text="${error}"></span>
+            <span class="has-error" th:if="${param.error}" th:text="${error}"></span>
 
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <button class="btn btn-lg btn-primary btn-block btn-width-301" type="submit">Log In</button>
             <div class="padding-10"></div>
-            <h4 class="text-center"><a href="/registration">Create account</a></h4>
+            <h4 class="text-center"><a href="/signup">Create account</a></h4>
         </div>
       </form>
      </div>
