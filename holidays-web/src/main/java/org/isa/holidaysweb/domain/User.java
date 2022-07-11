@@ -3,8 +3,10 @@ package org.isa.holidaysweb.domain;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
+import java.util.UUID;
 
 public class User {
+
 
     @Size(min = 4, max = 25, message = "{validation.userName}")
     @NotBlank(message = "{validation.blank}")
@@ -12,6 +14,7 @@ public class User {
 
     @Size(min = 8, max = 25, message = "{validation.password}")
     private String password;
+
 
     public String getUserName() {
         return userName;

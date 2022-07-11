@@ -2,8 +2,10 @@ package org.isa.holidaysweb.web;
 
 import lombok.RequiredArgsConstructor;
 import org.isa.holidaysweb.api.DayOffData;
+import org.isa.holidaysweb.config.userlogging.UserPrincipal;
 import org.isa.holidaysweb.domain.DayOff;
 import org.isa.holidaysweb.domain.Vacation;
+import org.isa.holidaysweb.dto.CreateVacationDto;
 import org.isa.holidaysweb.service.VacationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -97,9 +100,12 @@ public class AuthorizedController {
     }
 
     @PostMapping("/summary")
-    public String confirmVacation(@ModelAttribute Vacation vacation, Model model) {
-        System.out.println(vacation);
-        vacationService.addNewVacation(vacation);
+    public String confirmVacation(@ModelAttribute Vacation vacation, Model model, Authentication authentication) {
+
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        CreateVacationDto createVacationDto = new CreateVacationDto(vacation.getDatesRange().getDateFrom(), vacation.getDatesRange().getDateTo(), principal.getId());
+        LOGGER.info("CreateVacationDto: " + createVacationDto);
+        vacationService.addNewVacation(createVacationDto);
         model.addAttribute("vacationList", vacationService.getVacationList());
         return "vacation-list";
     }

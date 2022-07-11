@@ -25,12 +25,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Vacation {
 
-    private Long id;
-    private boolean approved;
-
     @ValidDates
     private DatesRange datesRange;
     private Integer numberOfDays;
+    private Object userId;
 
     @Data
     @NoArgsConstructor

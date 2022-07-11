@@ -1,16 +1,9 @@
 package org.isa.holidaysweb.repository;
 
-import org.isa.holidaysweb.domain.Vacation;
+import org.isa.holidaysweb.enity.VacationDAO;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.UUID;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class VacationRepository {
-
-    public static List<Vacation> vacationList = new ArrayList<>();
-
-    public static List<Vacation> getVacationList() {
-        return vacationList;
-    }
+public interface VacationRepository extends JpaRepository<VacationDAO, UUID> {
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 public class UserPrincipal implements UserDetails {
 
@@ -23,6 +24,10 @@ public class UserPrincipal implements UserDetails {
 
         userDto.getRolesList().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role)));
         return authorities;
+    }
+
+    public UUID getId() {
+        return userDto.getId();
     }
 
     @Override

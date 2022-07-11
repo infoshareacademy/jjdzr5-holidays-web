@@ -52,6 +52,10 @@ public class UserDAO {
     @Column(name = COLUMN_PREFIX + "is_active")
     private boolean isActive;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "v_user_id")
+    private List<VacationDAO> vacationList;
+
     public List<String> getRolesList() {
         if (role.length() > 0) {
             return Arrays.asList(role.split(","));
