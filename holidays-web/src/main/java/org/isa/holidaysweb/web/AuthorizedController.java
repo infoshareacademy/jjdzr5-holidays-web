@@ -3,15 +3,25 @@ package org.isa.holidaysweb.web;
 import lombok.RequiredArgsConstructor;
 import org.isa.holidaysweb.api.DayOffData;
 import org.isa.holidaysweb.domain.DayOff;
+import org.isa.holidaysweb.domain.Vacation;
+import org.isa.holidaysweb.service.VacationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Controller
@@ -19,6 +29,9 @@ import java.util.ArrayList;
 @Secured(value = {"ROLE_USER", "ROLE_ADMIN"})
 public class AuthorizedController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizedController.class);
+
+    @Autowired
+    private VacationService vacationService;
 
     public ArrayList<DayOff> holiday = DayOffData.getDayOffList();
 
@@ -38,5 +51,61 @@ public class AuthorizedController {
     public String welcomeHolidays(Model model) {
         model.addAttribute("holiday",  holiday);
         return "welcome";
+    }
+    @RequestMapping("/vacationList")
+    public String vacationList(Model model) {
+        model.addAttribute("vacationList", vacationService.getVacationList());
+        return "vacation-list";
+    }
+
+    @RequestMapping("/addNewVacation")
+    public String addNewVacationForm(Model model) {
+        if(!model.containsAttribute("vacation")) {
+            model.addAttribute("vacation", new Vacation());
+        }
+        return "add-new-vacation-form";
+    }
+
+    @PostMapping("/addNewVacation")
+    public RedirectView addNewVacation(@ModelAttribute @Valid Vacation vacation,
+                                       BindingResult result,
+                                       RedirectAttributes redirectAttributes,
+                                       Model model) {
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vacation", result);
+            redirectAttributes.addFlashAttribute("vacation", vacation);
+            return new RedirectView("/addNewVacation");
+        }
+
+        redirectAttributes.addFlashAttribute("validatedVacation", vacation);
+        System.out.println(vacation);
+        Integer daysToDeduct = vacation.countDays();
+
+        if (daysToDeduct == 0) {
+            return new RedirectView("/nothingToDeduct");
+        } else {
+            return new RedirectView("/summary");
+        }
+    }
+    @RequestMapping ("/summary")
+    public String summary(@ModelAttribute("validatedVacation") Vacation vacation,
+                          Model model) {
+        System.out.println("Inside summary method: " + vacation);
+        model.addAttribute("validatedVacation", vacation);
+        System.out.println("Added attribute to model: " + model.getAttribute("validatedVacation"));
+        return "summary-view";
+    }
+
+    @PostMapping("/summary")
+    public String confirmVacation(@ModelAttribute Vacation vacation, Model model) {
+        System.out.println(vacation);
+        vacationService.addNewVacation(vacation);
+        model.addAttribute("vacationList", vacationService.getVacationList());
+        return "vacation-list";
+    }
+
+    @RequestMapping("/nothingToDeduct")
+    public String nothingToDeduct() {
+        return "nothing-to-deduct";
     }
 }
