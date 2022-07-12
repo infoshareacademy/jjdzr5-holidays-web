@@ -52,8 +52,7 @@ public class UserDAO {
     @Column(name = COLUMN_PREFIX + "is_active")
     private boolean isActive;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "v_user_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<VacationDAO> vacationList;
 
     public List<String> getRolesList() {

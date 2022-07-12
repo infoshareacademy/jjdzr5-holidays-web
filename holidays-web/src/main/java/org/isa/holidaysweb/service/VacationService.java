@@ -12,7 +12,6 @@ import org.isa.holidaysweb.enity.VacationDAO;
 import org.isa.holidaysweb.repository.UserRepository;
 import org.isa.holidaysweb.repository.VacationRepo;
 import org.isa.holidaysweb.repository.VacationRepository;
-import org.isa.holidaysweb.web.AuthorizedController;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,9 +52,9 @@ public class VacationService {
         return modelMapper.map(vacationDAO, VacationDto.class);
     }
 
-    public List<Vacation> getVacationList() {
+    public List<VacationDAO> findAll() {
         System.out.println("Inside getVacationList method");
-        return VacationRepo.getVacationList();
+        return vacationRepository.findAll();
     }
 
 }

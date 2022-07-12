@@ -20,10 +20,7 @@
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/login}"> Log In</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/registration}">Create account</a>
+            <a class="nav-link" th:href="@{/}"> Main menu</a>
           </li>
         </ul>
       </div>
@@ -49,9 +46,10 @@
               </tr>
               </thead>
               <tbody>
+              <!--/*@thymesVar id="vacationList" type="org.isa.holidaysweb.service.VacationService"*/-->
               <tr th:each="vacation : ${vacationList}">
-                <td th:text="${vacation.datesRange.dateFrom}"></td>
-                <td th:text="${vacation.datesRange.dateTo}"></td>
+                <td th:text="${vacation.dateFrom}"></td>
+                <td th:text="${vacation.dateTo}"></td>
                 <td>
                   <a class="btn btn-primary">
                     WITHDRAW

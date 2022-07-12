@@ -25,7 +25,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -57,7 +56,7 @@ public class AuthorizedController {
     }
     @RequestMapping("/vacationList")
     public String vacationList(Model model) {
-        model.addAttribute("vacationList", vacationService.getVacationList());
+        model.addAttribute("vacationList", vacationService.findAll());
         return "vacation-list";
     }
 
@@ -106,7 +105,7 @@ public class AuthorizedController {
         CreateVacationDto createVacationDto = new CreateVacationDto(vacation.getDatesRange().getDateFrom(), vacation.getDatesRange().getDateTo(), principal.getId());
         LOGGER.info("CreateVacationDto: " + createVacationDto);
         vacationService.addNewVacation(createVacationDto);
-        model.addAttribute("vacationList", vacationService.getVacationList());
+        model.addAttribute("vacationList", vacationService.findAll());
         return "vacation-list";
     }
 

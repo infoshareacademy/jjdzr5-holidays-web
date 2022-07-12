@@ -1,6 +1,7 @@
 package org.isa.holidaysweb.enity;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.isa.holidaysweb.annotation.ValidDates;
 import org.isa.holidaysweb.domain.Vacation;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,7 +26,8 @@ public class VacationDAO {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @org.hibernate.annotations.Type(type = "uuid-char")
     @Column(name = COLUMN_PREFIX + "id")
     private UUID id;
     @Column(name = COLUMN_PREFIX + "date_from")
@@ -34,6 +36,7 @@ public class VacationDAO {
     private LocalDate dateTo;
 
     @ManyToOne
+    @JoinColumn(name = "u_id", nullable = false)
     private UserDAO user;
 
 
