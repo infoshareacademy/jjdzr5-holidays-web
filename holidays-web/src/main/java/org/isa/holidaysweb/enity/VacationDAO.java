@@ -36,7 +36,7 @@ public class VacationDAO {
     private LocalDate dateTo;
 
     @ManyToOne
-    @JoinColumn(name = "u_id", nullable = false)
+    @JoinColumn(name = "u_id")
     private UserDAO user;
 
 

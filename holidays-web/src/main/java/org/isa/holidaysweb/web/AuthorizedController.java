@@ -6,6 +6,8 @@ import org.isa.holidaysweb.config.userlogging.UserPrincipal;
 import org.isa.holidaysweb.domain.DayOff;
 import org.isa.holidaysweb.domain.Vacation;
 import org.isa.holidaysweb.dto.CreateVacationDto;
+import org.isa.holidaysweb.enity.VacationDAO;
+import org.isa.holidaysweb.repository.VacationRepository;
 import org.isa.holidaysweb.service.VacationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,15 +18,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,6 +36,9 @@ public class AuthorizedController {
 
     @Autowired
     private VacationService vacationService;
+
+    @Autowired
+    private VacationRepository vacationRepository;
 
     public ArrayList<DayOff> holiday = DayOffData.getDayOffList();
 
@@ -112,5 +117,15 @@ public class AuthorizedController {
     @RequestMapping("/nothingToDeduct")
     public String nothingToDeduct() {
         return "nothing-to-deduct";
+    }
+
+    @RequestMapping("/deleteVacation")
+    public RedirectView deleteVacation(@RequestParam UUID id) {
+        VacationDAO vacation = vacationRepository.findById(id).get();
+        if (vacation.getDateFrom().isBefore(LocalDate.now())) {
+        } else {
+            vacationService.remove(id);
+        }
+        return new RedirectView("/vacationList");
     }
 }

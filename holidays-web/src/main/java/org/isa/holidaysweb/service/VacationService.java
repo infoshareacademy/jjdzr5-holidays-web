@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class VacationService {
@@ -53,8 +54,20 @@ public class VacationService {
     }
 
     public List<VacationDAO> findAll() {
-        System.out.println("Inside getVacationList method");
+        LOGGER.info("Inside getVacationList method");
         return vacationRepository.findAll();
+    }
+
+    public VacationDAO remove(UUID id) {
+        LOGGER.info("Removing Vacation from db");
+        VacationDAO vacation = vacationRepository.findById(id).get();
+        if (vacation != null) {
+            vacationRepository.delete(vacation);
+            LOGGER.info("Vacation has been removed");
+        } else {
+            LOGGER.info("Vacation not found");
+        }
+        return vacation;
     }
 
 }
