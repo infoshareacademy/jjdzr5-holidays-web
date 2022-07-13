@@ -1,14 +1,15 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Welcome</title>
+    <title>List Employee</title>
     <link th:href="@{./css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{./css/main.css}" rel="stylesheet" type="text/css">
 </head>
 <body class="background-radial-gradient">
 <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-<div class="container padding-top">
+<div class="container my-zk">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand" id="style-2">Holidays 2022</span>
@@ -19,55 +20,42 @@
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" th:href="@{/login}"> Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/vacationList}" >Reserve Holiday</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" >Profile</a>
+                        <a class="nav-link" th:href="@{/registration}">Create account</a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div sec:authorize="isAuthenticated()">
-            <h5 class="style-1 btn-width-300">Welcome : <span class="style-3" th:text="${#authentication.name}"></span></h5>
-            <a class="btn btn-primary" th:text="Logout" th:href="@{/logout}"></a>
-        </div>
     </nav>
     <div class="padding-10"></div>
+    <h3 class="style-2"> List Vacation</h3>
+    <div class="card">
+        <div class="card-body">
+                <div class="padding-10"></div>
+                <div class="col-md-10">
+                    You selected only weekends/public holiday!
+                    <p class="my-2">
+                    <a th:href="@{/addNewVacation}" class="btn btn-primary">Edit form</a>
+                    <a th:href="@{/vacationList}" class="btn btn-primary">Go back main</a>
+                    </p>
+                </div>
 
-    <table class="table table-bordered table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Date</th>
-            <th scope="col">Type</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="dayHolidays : ${holiday}">
-            <td th:text="${dayHolidays.name}"></td>
-            <td th:text="${dayHolidays.description}" ></td>
-            <td th:text="${dayHolidays.date.iso}"></td>
-            <td th:text="${dayHolidays.type}" ></td>
-        </tr>
-        </tbody>
-    </table>
-
+        </div>
+    </div>
     <div class="padding-bottom"></div>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
        <span class="style-3 float-zk">
-         <a class="navbar-brand" href="https://github.com/infoshareacademy/jjdzr5-holidays-web" target="_blank" alt="Holidays App">
+         <a class="navbar-brand" href="#">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
           <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
       </svg></a> || Holiday (c) 2022</span>
         </div>
     </nav>
-  </div>
-  <script th:src="@{/js/bootstrap.min.js}"></script>
+</div>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

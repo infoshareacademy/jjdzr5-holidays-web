@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Welcome</title>
     <link th:href="@{./css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{./css/main.css}" rel="stylesheet" type="text/css">
 </head>
-<body class="background-radial-gradient">
+
+<body class="background-radial-gradient overflow-hidden">
 <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+<div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 <div class="container padding-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -19,43 +21,21 @@
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" th:href="@{/login}"> Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/vacationList}" >Reserve Holiday</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" >Profile</a>
+                        <a class="nav-link" th:href="@{/signup}">Create account</a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div sec:authorize="isAuthenticated()">
-            <h5 class="style-1 btn-width-300">Welcome : <span class="style-3" th:text="${#authentication.name}"></span></h5>
-            <a class="btn btn-primary" th:text="Logout" th:href="@{/logout}"></a>
-        </div>
     </nav>
     <div class="padding-10"></div>
-
-    <table class="table table-bordered table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Date</th>
-            <th scope="col">Type</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="dayHolidays : ${holiday}">
-            <td th:text="${dayHolidays.name}"></td>
-            <td th:text="${dayHolidays.description}" ></td>
-            <td th:text="${dayHolidays.date.iso}"></td>
-            <td th:text="${dayHolidays.type}" ></td>
-        </tr>
-        </tbody>
-    </table>
-
+    <div class="card bg-glass">
+        <div class="card-body">
+            <p th:text="'Dziękujemy za założenie konta ' + *{user.getUserName()}"></p>
+        </div>
+    </div>
     <div class="padding-bottom"></div>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
@@ -66,8 +46,9 @@
       </svg></a> || Holiday (c) 2022</span>
         </div>
     </nav>
-  </div>
-  <script th:src="@{/js/bootstrap.min.js}"></script>
+</div>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>
+
 </html>

@@ -39,3 +39,4 @@ build/
 /dataSources/
 /dataSources.local.xml
 .idea/
+db
