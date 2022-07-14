@@ -7,6 +7,7 @@ import org.isa.holidaysweb.domain.User;
 import org.isa.holidaysweb.dto.CreateUserDto;
 import org.isa.holidaysweb.dto.UserDto;
 import org.isa.holidaysweb.service.UserService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

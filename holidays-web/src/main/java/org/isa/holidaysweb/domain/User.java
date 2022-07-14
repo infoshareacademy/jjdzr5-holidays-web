@@ -1,20 +1,33 @@
 package org.isa.holidaysweb.domain;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.UUID;
 
+
 public class User {
 
+    @Transient
+    @Size(min = 8, max = 25, message = "These passwords don't match.")
+    @NotBlank(message = "This field is required")
+    private String passwordConfirm;
 
-    @Size(min = 4, max = 25, message = "{validation.userName}")
-    @NotBlank(message = "{validation.blank}")
+    @Size(min = 4, max = 32, message = "Please use between 6 and 32 characters.")
+    @NotBlank(message = "This field is required")
     private String userName;
 
-    @Size(min = 8, max = 25, message = "{validation.password}")
+    @Size(min = 8, max = 25, message = "Please use between 8 and 25 characters.")
+    @NotBlank(message = "This field is required")
     private String password;
 
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
 
     public String getUserName() {
         return userName;

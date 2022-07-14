@@ -42,16 +42,15 @@ public class AuthorizedController {
 
     public ArrayList<DayOff> holiday = DayOffData.getDayOffList();
 
-    @GetMapping("/admin")
+    //TODO: check
+    @GetMapping(value = {"/welcome_admin"})
+    @RequestMapping(value ={"/list-employees"})
     @Secured("ROLE_ADMIN")
     public String admin(Model model) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-
         LOGGER.info(currentPrincipalName);
-
-        return "admin";
+        return "/list-employees";
     }
 
     @GetMapping({"/", "/welcome"})
@@ -59,6 +58,7 @@ public class AuthorizedController {
         model.addAttribute("holiday",  holiday);
         return "welcome";
     }
+
     @RequestMapping("/vacationList")
     public String vacationList(Model model) {
         model.addAttribute("vacationList", vacationService.findAll());

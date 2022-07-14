@@ -27,12 +27,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" >Profile</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/welcome_admin}" >Admin</a>
+                    </li>
                 </ul>
             </div>
         </div>
         <div sec:authorize="isAuthenticated()">
             <h5 class="style-1 btn-width-300">Welcome : <span class="style-3" th:text="${#authentication.name}"></span></h5>
-            <a class="btn btn-primary" th:text="Logout" th:href="@{/logout}"></a>
+            <a class="btn btn-primary fix-logout" th:text="Logout" th:href="@{/logout}"></a>
         </div>
     </nav>
     <div class="padding-10"></div>

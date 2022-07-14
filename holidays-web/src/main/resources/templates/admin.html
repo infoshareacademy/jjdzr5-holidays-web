@@ -32,12 +32,25 @@
         </div>
         <div sec:authorize="isAuthenticated()">
             <h5 class="style-1 btn-width-300">Welcome : <span class="style-3" th:text="${#authentication.name}"></span></h5>
-            <a class="btn btn-primary" th:text="Logout" th:href="@{/logout}"></a>
+            <a class="btn btn-primary fix-logout" th:text="Logout" th:href="@{/logout}"></a>
         </div>
     </nav>
     <div class="padding-10"></div>
+    <div class="card bg-glass">
+        <div class="card-body">
+            <h1 class="style-2"> Administration Panel </h1>
+        <div class="padding-10"></div>
+            <!--/*@thymesVar id="employees" type="text"*/-->
+            <div th:switch="${employees}" class="container my-2">
+                <p class="my-2">
+                    <a th:href="@{/add-edit-employee}" class="btn btn-primary"><i> Add Employee </i></a>
+                </p>
+                <div class="padding-10"></div>
+            </div>
 
-    <h1>Panel Administracyjny</h1>
+    </div>
+    </div>
+
 
     <div class="padding-bottom"></div>
     <nav class="navbar navbar-dark bg-dark">
