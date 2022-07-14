@@ -145,9 +145,9 @@ public class AuthorizedController {
     @GetMapping("/userDetails")
     public String userDetails(Model model, Authentication authentication) {
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
-        Optional<UserDetailsDAO> optionalUserDetails = userDetailsRepository.findById(principal.getId());
+        Optional<UserDetailsDAO> optionalUserDetails = userDetailsRepository.findUserDetailsDAOByUser_Id(principal.getId());
         if(optionalUserDetails.isPresent()) {
-            model.addAttribute("userDetails", userDetailsRepository.findById(principal.getId()).get());
+            model.addAttribute("userDetails", optionalUserDetails.get());
         }
         else model.addAttribute("userDetails", null);
         return "user-details";
@@ -180,14 +180,14 @@ public class AuthorizedController {
     public String editDetails(Model model, Authentication authentication) {
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
         UUID userId = principal.getId();
-        UserDetailsDAO userDetailsDAO = userDetailsRepository.findUserDetailsDAOByUser_Id(userId);
+        UserDetailsDAO userDetailsDAO = userDetailsRepository.findUserDetailsDAOByUser_Id(userId).get();
         UserDetails userDetails = new UserDetails();
         userDetails.setFirstName(userDetailsDAO.getFirstName());
         userDetails.setLastName(userDetailsDAO.getLastName());
         userDetails.setDepartament(userDetailsDAO.getDepartament());
 
         model.addAttribute("userDetails", userDetails);
-        return "create-details-form";
+        return "update-details-form";
     }
 
     @PostMapping("/editDetails")
@@ -195,10 +195,11 @@ public class AuthorizedController {
                                   BindingResult result,
                                   Authentication authentication) {
         if(result.hasErrors()) {
-            return "create-details-form";
+            return "update-details-form";
         }
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
         UUID userId = principal.getId();
+
         UserDetailsDto userDetailsDto = new UserDetailsDto(
                 userDetails.getFirstName(),
                 userDetails.getLastName(),

@@ -40,10 +40,12 @@ public class UserDetailsService {
     }
 
     public UserDetailsDto updateUserDetails(UserDetailsDto userDetailsDto, UUID userId) {
-        UserDetailsDAO userDetailsDAO = userDetailsRepository.findUserDetailsDAOByUser_Id(userId);
+        UserDetailsDAO userDetailsDAO = userDetailsRepository.findUserDetailsDAOByUser_Id(userId).get();
+        LOGGER.info("Found UserDetailsDAO: " + userDetailsDAO.getFirstName() + " " + userDetailsDAO.getLastName());
         userDetailsDAO.setFirstName(userDetailsDto.getFirstName());
         userDetailsDAO.setLastName(userDetailsDto.getLastName());
         userDetailsDAO.setDepartament(userDetailsDto.getDepartament());
+        userDetailsRepository.save(userDetailsDAO);
         return modelMapper.map(userDetailsDAO, UserDetailsDto.class);
     }
 
