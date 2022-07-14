@@ -15,10 +15,12 @@ public class UserDetailsDto {
     private String firstName;
     private String lastName;
     private Departament departament;
+    private String profilePicture;
 
-    public UserDetailsDto(String firstName, String lastName, Departament departament) {
+    public UserDetailsDto(String firstName, String lastName, Departament departament, String profilePicture) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.departament = departament;
+        this.profilePicture = profilePicture;
     }
 }

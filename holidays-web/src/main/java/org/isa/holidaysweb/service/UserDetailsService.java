@@ -34,7 +34,7 @@ public class UserDetailsService {
     public UserDetailsDto createUserDetails(CreateUserDetailsDto userDetailsDto) {
         LOGGER.info("Adding user information.");
         UserDAO user = userRepository.findById(userDetailsDto.getUserId()).get();
-        UserDetailsDAO userDetailsDAO = new UserDetailsDAO(userDetailsDto.getFirstName(), userDetailsDto.getLastName(), userDetailsDto.getDepartament(), user);
+        UserDetailsDAO userDetailsDAO = new UserDetailsDAO(userDetailsDto.getFirstName(), userDetailsDto.getLastName(), userDetailsDto.getDepartament(), user, userDetailsDto.getProfilePicture());
         userDetailsRepository.save(userDetailsDAO);
         return modelMapper.map(userDetailsDAO, UserDetailsDto.class);
     }
@@ -45,6 +45,7 @@ public class UserDetailsService {
         userDetailsDAO.setFirstName(userDetailsDto.getFirstName());
         userDetailsDAO.setLastName(userDetailsDto.getLastName());
         userDetailsDAO.setDepartament(userDetailsDto.getDepartament());
+        userDetailsDAO.setProfilePicture(userDetailsDto.getProfilePicture());
         userDetailsRepository.save(userDetailsDAO);
         return modelMapper.map(userDetailsDAO, UserDetailsDto.class);
     }

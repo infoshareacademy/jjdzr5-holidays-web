@@ -7,6 +7,7 @@ import org.isa.holidaysweb.domain.Vacation;
 
 import org.isa.holidaysweb.dto.CreateVacationDto;
 import org.isa.holidaysweb.dto.VacationDto;
+import org.isa.holidaysweb.dto.ViewVacationDto;
 import org.isa.holidaysweb.enity.UserDAO;
 import org.isa.holidaysweb.enity.VacationDAO;
 import org.isa.holidaysweb.repository.UserRepository;
@@ -19,8 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class VacationService {
@@ -53,9 +56,25 @@ public class VacationService {
         return modelMapper.map(vacationDAO, VacationDto.class);
     }
 
-    public List<VacationDAO> findAll() {
+    public List<ViewVacationDto> findAll() {
         LOGGER.info("Inside getVacationList method");
-        return vacationRepository.findAll();
+        List<VacationDAO> allVacations = vacationRepository.findAll();
+        return mapToViewVacation(allVacations);
+    }
+
+
+    public List<ViewVacationDto> findUserVacation(UUID userId) {
+        List<VacationDAO> vacationDAOlist = vacationRepository.findVacationDAOByUser_Id(userId);
+        return mapToViewVacation(vacationDAOlist);
+    }
+
+    public List<ViewVacationDto> mapToViewVacation(List<VacationDAO> vacationDAOList) {
+        List<ViewVacationDto> viewVacationDtoList = new ArrayList<>();
+        for (VacationDAO vacation : vacationDAOList) {
+            ViewVacationDto viewVacationDto = new ViewVacationDto(vacation.getId(), vacation.getDateFrom(), vacation.getDateTo());
+            viewVacationDtoList.add(viewVacationDto);
+        }
+        return viewVacationDtoList;
     }
 
     public VacationDAO remove(UUID id) {

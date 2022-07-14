@@ -35,10 +35,11 @@ public class DBInit implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         CreateUserDto createUserDto1 = new CreateUserDto("user", passwordEncoder.encode("user"), "USER");
-        userService.addUser(createUserDto1);
+        UserDto userDto = userService.addUser(createUserDto1);
+        UserDAO userDAO = modelMapper.map(userDto, UserDAO.class);
         CreateUserDto createUserDto2 = new CreateUserDto("admin", passwordEncoder.encode("admin"), "ADMIN");
         UserDto adminDto = userService.addUser(createUserDto2);
-        UserDAO userDAO = modelMapper.map(adminDto, UserDAO.class);
+        UserDAO adminDAO = modelMapper.map(adminDto, UserDAO.class);
         UUID id = userDAO.getId();
         CreateVacationDto createVacationDto = new CreateVacationDto(LocalDate.of(2022, Month.FEBRUARY, 6), LocalDate.of(2022, Month.FEBRUARY, 12), id);
         VacationDto vacationDto = vacationService.addNewVacation(createVacationDto);

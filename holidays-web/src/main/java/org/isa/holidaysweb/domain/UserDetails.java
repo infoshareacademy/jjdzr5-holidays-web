@@ -15,4 +15,5 @@ public class UserDetails {
     @Size(min=3, max=50)
     private String lastName;
     private Departament departament;
+    private String profilePicture;
 }

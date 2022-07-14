@@ -18,11 +18,12 @@ public class UserDetailsDAO {
     public static final String TABLE_NAME = "user_details";
     public static final String COLUMN_PREFIX = "ud_";
 
-    public UserDetailsDAO(String firstName, String lastName, Departament departament, UserDAO user) {
+    public UserDetailsDAO(String firstName, String lastName, Departament departament, UserDAO user, String profilePicture) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.departament = departament;
         this.user = user;
+        this.profilePicture = profilePicture;
     }
 
     @Id
@@ -35,9 +36,10 @@ public class UserDetailsDAO {
     @Column(name = COLUMN_PREFIX + "last_name")
     private String lastName;
     @Enumerated(EnumType.STRING)
-    @Column(name = COLUMN_PREFIX + "departament")
+    @Column(name = COLUMN_PREFIX + "department")
     private Departament departament;
-
+    @Column(name = COLUMN_PREFIX + "profile_picture")
+    private String profilePicture;
     @OneToOne
     private UserDAO user;
 

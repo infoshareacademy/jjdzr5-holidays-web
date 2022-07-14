@@ -31,7 +31,7 @@
     <div class="card">
         <div class="card-body">
             <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.domain.UserDetails"*/-->
-            <form th:action="@{/createDetailsForm}" th:object="${userDetails}" method="post">
+            <form th:action="@{/createDetailsForm}" th:object="${userDetails}" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-md-8">
                         <label for="first-name" class="col-form-label">First Name:</label>
@@ -51,6 +51,11 @@
                             <option th:each="departament : ${T(org.isa.holidaysweb.enity.Departament).values()}"
                                     th:value="${departament}" th:text="${departament.displayValue}"></option>
                         </select>
+                    </div>
+                    <div class="padding-10"></div>
+                    <div class="form-group col-md-8">
+                        <label for="profile-picture" class="col-form-label">Profile picture:</label>
+                        <input type="file" name="file" id="profile-picture" accept="image/png, image/jpg, image/jpeg">
                     </div>
                     <div class="padding-10"></div>
                     <div class="col-md-6">

@@ -13,12 +13,14 @@ public class CreateUserDetailsDto {
     private String lastName;
     private Departament departament;
     private UUID userId;
+    private String profilePicture;
 
-    public CreateUserDetailsDto(String firstName, String lastName, Departament departament, UUID userId) {
+    public CreateUserDetailsDto(String firstName, String lastName, Departament departament, UUID userId, String profilePicture) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.departament = departament;
         this.userId = userId;
+        this.profilePicture = profilePicture;
     }
 
 }

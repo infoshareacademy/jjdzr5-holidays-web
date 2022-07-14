@@ -1,6 +1,7 @@
 package org.isa.holidaysweb.web;
 
 import lombok.RequiredArgsConstructor;
+import org.attoparser.trace.MarkupTraceEvent;
 import org.isa.holidaysweb.api.DayOffData;
 import org.isa.holidaysweb.config.userlogging.UserPrincipal;
 import org.isa.holidaysweb.domain.DayOff;
@@ -15,6 +16,7 @@ import org.isa.holidaysweb.repository.UserDetailsRepository;
 import org.isa.holidaysweb.repository.VacationRepository;
 import org.isa.holidaysweb.service.UserDetailsService;
 import org.isa.holidaysweb.service.VacationService;
+import org.isa.holidaysweb.utils.FileUploadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +25,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -73,8 +81,10 @@ public class AuthorizedController {
         return "welcome";
     }
     @RequestMapping("/vacationList")
-    public String vacationList(Model model) {
-        model.addAttribute("vacationList", vacationService.findAll());
+    public String vacationList(Model model, Authentication authentication) {
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        UUID userId = principal.getId();
+        model.addAttribute("vacationList", vacationService.findUserVacation(userId));
         return "vacation-list";
     }
 
@@ -110,9 +120,7 @@ public class AuthorizedController {
     @RequestMapping ("/summary")
     public String summary(@ModelAttribute("validatedVacation") Vacation vacation,
                           Model model) {
-        System.out.println("Inside summary method: " + vacation);
         model.addAttribute("validatedVacation", vacation);
-        System.out.println("Added attribute to model: " + model.getAttribute("validatedVacation"));
         return "summary-view";
     }
 
@@ -121,9 +129,8 @@ public class AuthorizedController {
 
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
         CreateVacationDto createVacationDto = new CreateVacationDto(vacation.getDatesRange().getDateFrom(), vacation.getDatesRange().getDateTo(), principal.getId());
-        LOGGER.info("CreateVacationDto: " + createVacationDto);
         vacationService.addNewVacation(createVacationDto);
-        model.addAttribute("vacationList", vacationService.findAll());
+        model.addAttribute("vacationList", vacationService.findUserVacation(principal.getId()));
         return "vacation-list";
     }
 
@@ -160,19 +167,28 @@ public class AuthorizedController {
     }
 
     @PostMapping("/createDetailsForm")
-    public String createDetailsForm(@ModelAttribute @Valid UserDetails userDetails,
-                                       BindingResult result,
-                                       Authentication authentication) {
+    public String createDetailsForm(@RequestParam("file") MultipartFile file,
+                                    @ModelAttribute @Valid UserDetails userDetails,
+                                    BindingResult result,
+                                    Authentication authentication) throws IOException {
         if(result.hasErrors()) {
             return "create-details-form";
         }
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        userDetails.setProfilePicture(fileName);
+
         CreateUserDetailsDto createUserDetailsDto = new CreateUserDetailsDto(
                 userDetails.getFirstName(),
                 userDetails.getLastName(),
                 userDetails.getDepartament(),
-                principal.getId());
-        userDetailsService.createUserDetails(createUserDetailsDto);
+                principal.getId(),
+                userDetails.getProfilePicture());
+        UserDetailsDto userDetailsDto = userDetailsService.createUserDetails(createUserDetailsDto);
+
+        String uploadDir = "src/main/resources/static/images";
+        FileUploadUtil.saveFile(uploadDir, fileName, file);
+
         return "user-details";
     }
 
@@ -203,7 +219,8 @@ public class AuthorizedController {
         UserDetailsDto userDetailsDto = new UserDetailsDto(
                 userDetails.getFirstName(),
                 userDetails.getLastName(),
-                userDetails.getDepartament());
+                userDetails.getDepartament(),
+                userDetails.getProfilePicture());
 
         userDetailsService.updateUserDetails(userDetailsDto, userId);
         return "user-details";

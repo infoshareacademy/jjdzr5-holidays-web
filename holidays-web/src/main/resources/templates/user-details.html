@@ -27,7 +27,7 @@
         </div>
     </nav>
     <div class="padding-10"></div>
-    <h3 class="style-2"> List Vacation</h3>
+    <h3 class="style-2"> User Details</h3>
     <div class="card">
         <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.enity.UserDetailsDAO"*/-->
         <div class="card-body" th:switch="${userDetails}">
@@ -42,19 +42,26 @@
                 <p class="my-2">
                     <a href="/editDetails" class="btn btn-primary"><i> Edit Details </i></a>
                 </p>
-                <table class="table table-striped table-responsive-md">
-                    <tr>
-                        <th scope="row">First Name: </th>
-                        <th scope="row">Last Name: </th>
-                        <th scope="row">Departament: </th>
-                    </tr>
-                    <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.enity.UserDetailsDAO"*/-->
-                    <tr th:object="${userDetails}">
-                        <td th:text="${userDetails.firstName}"/>
-                        <td th:text="${userDetails.lastName}"/>
-                        <td th:text="${userDetails.departament.displayValue}" />
-                    </tr>
-                </table>
+                <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.enity.UserDetailsDAO"*/-->
+                <div class="container">
+                <div class="row">
+                    <table class="table table-striped" th:object="${userDetails}" style="width: 70%">
+                        <tr>
+                            <th scope="col">First Name: </th>
+                            <td th:text="${userDetails.firstName}" />
+                            <td rowspan="3"><img th:src="${'images/' + userDetails.profilePicture}" width="120"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Last Name: </th>
+                            <td th:text="${userDetails.lastName}" />
+                        </tr>
+                        <tr>
+                            <th scope="col">Department: </th>
+                            <td th:text="${userDetails.departament.displayValue}" />
+                        </tr>
+                    </table>
+                </div>
+                </div>
             </div>
         </div>
     </div>

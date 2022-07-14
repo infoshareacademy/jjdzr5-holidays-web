@@ -52,9 +52,11 @@
                 <td th:text="${vacation.dateFrom}"></td>
                 <td th:text="${vacation.dateTo}"></td>
                 <td>
-                    <a th:href="@{'/deleteVacation?id=' + ${vacation.getId()}}" class="btn btn-primary">
-                      WITHDRAW
-                    </a>
+                    <div th:if="${vacation.isInFuture()}">
+                      <a th:href="@{'/deleteVacation?id=' + ${vacation.getId()}}" class="btn btn-primary">
+                        WITHDRAW
+                      </a>
+                    </div>
                 </td>
               </tr>
               </tbody>
