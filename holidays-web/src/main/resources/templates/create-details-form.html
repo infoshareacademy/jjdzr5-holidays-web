@@ -1,16 +1,14 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Add Employee</title>
+    <title>List Employee</title>
     <link th:href="@{./css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{./css/main.css}" rel="stylesheet" type="text/css">
-
 </head>
-
-<body class="background-radial-gradient overflow-hidden">
+<body class="background-radial-gradient">
 <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-<div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 <div class="container my-zk">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -29,35 +27,37 @@
         </div>
     </nav>
     <div class="padding-10"></div>
-    <h3 class="style-2"> Add New Vacation Request </h3>
+    <h3 class="style-2"> List Vacation</h3>
     <div class="card">
         <div class="card-body">
-            <div class="col-md-10">
-                <!--/*@thymesVar id="vacation" type="org.isa.holidaysweb.domain.Vacation"*/-->
-                <form th:action="@{/addNewVacation}" th:object="${vacation}" method="post">
-                    <div class="row">
-                        <div class="form-group col-md-8">
-                            <label for="date-from" class="col-form-label">Select start date</label>
-                            <input type="date" id="date-from" required th:field="*{datesRange.dateFrom}">
-                            <span th:if="${#fields.hasErrors('datesRange')}" th:errors="*{datesRange}" />
-                        </div>
-                        <div class="padding-10"></div>
-                        <div class="form-group col-md-8">
-                            <label for="date-to" class="col-form-label">Select finish date</label>
-                            <input type="date" id="date-to" required th:field="*{datesRange.dateTo}">
-                            <span th:if="${#fields.hasErrors('datesRange')}" th:errors="*{datesRange}" />
-                        </div>
-                        <div class="padding-10"></div>
-                        <div class="form-group col-md-8">
-                        </div>
-                        <div class="padding-10"></div>
-                        <div class="col-md-6">
-                            <input type="submit" class="btn btn-primary" value=" Submit " />
-                        </div>
+            <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.domain.UserDetails"*/-->
+            <form th:action="@{/createDetailsForm}" th:object="${userDetails}" method="post">
+                <div class="row">
+                    <div class="form-group col-md-8">
+                        <label for="first-name" class="col-form-label">First Name:</label>
+                        <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.domain.UserDetails"*/-->
+                        <input type="text" id="first-name" required th:field="*{firstName}">
+                        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" />
                     </div>
-                </form>
-
-            </div>
+                    <div class="padding-10"></div>
+                    <div class="form-group col-md-8">
+                        <label for="last-name" class="col-form-label">Last Name:</label>
+                        <input type="text" id="last-name" required th:field="*{lastName}">
+                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" />
+                    </div>
+                    <div class="padding-10"></div>
+                    <div class="form-group col-md-8">
+                        <select th:field="*{departament}" class="form-select" >
+                            <option th:each="departament : ${T(org.isa.holidaysweb.enity.Departament).values()}"
+                                    th:value="${departament}" th:text="${departament.displayValue}"></option>
+                        </select>
+                    </div>
+                    <div class="padding-10"></div>
+                    <div class="col-md-6">
+                        <input type="submit" class="btn btn-primary" value=" Submit " />
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="padding-bottom"></div>
@@ -71,10 +71,6 @@
         </div>
     </nav>
 </div>
-
-
-
-
 <script th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>

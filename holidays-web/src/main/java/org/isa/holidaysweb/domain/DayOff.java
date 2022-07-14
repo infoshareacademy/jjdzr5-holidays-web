@@ -50,7 +50,7 @@ public class DayOff {
         return date;
     }
 
-    public void setDate(DateHoliday date) {
+    public void setDate(org.isa.holidaysweb.domain.DateHoliday date) {
         this.date = date;
     }
 

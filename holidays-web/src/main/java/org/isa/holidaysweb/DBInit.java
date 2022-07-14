@@ -39,10 +39,10 @@ public class DBInit implements CommandLineRunner {
         CreateUserDto createUserDto2 = new CreateUserDto("admin", passwordEncoder.encode("admin"), "ADMIN");
         UserDto adminDto = userService.addUser(createUserDto2);
         UserDAO userDAO = modelMapper.map(adminDto, UserDAO.class);
-        /*UUID id = userDAO.getId();
+        UUID id = userDAO.getId();
         CreateVacationDto createVacationDto = new CreateVacationDto(LocalDate.of(2022, Month.FEBRUARY, 6), LocalDate.of(2022, Month.FEBRUARY, 12), id);
         VacationDto vacationDto = vacationService.addNewVacation(createVacationDto);
-        VacationDAO vacationDAO = modelMapper.map(vacationDto, VacationDAO.class);*/
+        VacationDAO vacationDAO = modelMapper.map(vacationDto, VacationDAO.class);
 
         LOGGER.info("***    DB initialized!     ***");
         LOGGER.info("***  Application started!  ***");

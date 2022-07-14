@@ -4,10 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.isa.holidaysweb.api.DayOffData;
 import org.isa.holidaysweb.config.userlogging.UserPrincipal;
 import org.isa.holidaysweb.domain.DayOff;
+import org.isa.holidaysweb.domain.UserDetails;
 import org.isa.holidaysweb.domain.Vacation;
+import org.isa.holidaysweb.dto.CreateUserDetailsDto;
 import org.isa.holidaysweb.dto.CreateVacationDto;
+import org.isa.holidaysweb.dto.UserDetailsDto;
+import org.isa.holidaysweb.enity.UserDetailsDAO;
 import org.isa.holidaysweb.enity.VacationDAO;
+import org.isa.holidaysweb.repository.UserDetailsRepository;
 import org.isa.holidaysweb.repository.VacationRepository;
+import org.isa.holidaysweb.service.UserDetailsService;
 import org.isa.holidaysweb.service.VacationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +32,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -39,6 +46,12 @@ public class AuthorizedController {
 
     @Autowired
     private VacationRepository vacationRepository;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
 
     public ArrayList<DayOff> holiday = DayOffData.getDayOffList();
 
@@ -127,5 +140,71 @@ public class AuthorizedController {
             vacationService.remove(id);
         }
         return new RedirectView("/vacationList");
+    }
+
+    @GetMapping("/userDetails")
+    public String userDetails(Model model, Authentication authentication) {
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        Optional<UserDetailsDAO> optionalUserDetails = userDetailsRepository.findById(principal.getId());
+        if(optionalUserDetails.isPresent()) {
+            model.addAttribute("userDetails", userDetailsRepository.findById(principal.getId()).get());
+        }
+        else model.addAttribute("userDetails", null);
+        return "user-details";
+    }
+
+    @GetMapping("/createDetailsForm")
+    public String createUserDetails(Model model) {
+        model.addAttribute("userDetails", new UserDetails());
+        return "create-details-form";
+    }
+
+    @PostMapping("/createDetailsForm")
+    public String createDetailsForm(@ModelAttribute @Valid UserDetails userDetails,
+                                       BindingResult result,
+                                       Authentication authentication) {
+        if(result.hasErrors()) {
+            return "create-details-form";
+        }
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        CreateUserDetailsDto createUserDetailsDto = new CreateUserDetailsDto(
+                userDetails.getFirstName(),
+                userDetails.getLastName(),
+                userDetails.getDepartament(),
+                principal.getId());
+        userDetailsService.createUserDetails(createUserDetailsDto);
+        return "user-details";
+    }
+
+    @GetMapping("/editDetails")
+    public String editDetails(Model model, Authentication authentication) {
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        UUID userId = principal.getId();
+        UserDetailsDAO userDetailsDAO = userDetailsRepository.findUserDetailsDAOByUser_Id(userId);
+        UserDetails userDetails = new UserDetails();
+        userDetails.setFirstName(userDetailsDAO.getFirstName());
+        userDetails.setLastName(userDetailsDAO.getLastName());
+        userDetails.setDepartament(userDetailsDAO.getDepartament());
+
+        model.addAttribute("userDetails", userDetails);
+        return "create-details-form";
+    }
+
+    @PostMapping("/editDetails")
+    public String editDetailsForm(@ModelAttribute @Valid UserDetails userDetails,
+                                  BindingResult result,
+                                  Authentication authentication) {
+        if(result.hasErrors()) {
+            return "create-details-form";
+        }
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        UUID userId = principal.getId();
+        UserDetailsDto userDetailsDto = new UserDetailsDto(
+                userDetails.getFirstName(),
+                userDetails.getLastName(),
+                userDetails.getDepartament());
+
+        userDetailsService.updateUserDetails(userDetailsDto, userId);
+        return "user-details";
     }
 }
