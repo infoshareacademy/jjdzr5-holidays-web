@@ -19,6 +19,7 @@ public class VacationDAO {
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
         this.user = user;
+
     }
 
     @Id
@@ -30,10 +31,12 @@ public class VacationDAO {
     private LocalDate dateFrom;
     @Column(name = COLUMN_PREFIX + "date_to")
     private LocalDate dateTo;
+    @Column(name = COLUMN_PREFIX + "approved")
+    private boolean approved;
+
 
     @ManyToOne
     @JoinColumn(name = "u_id")
     private UserDAO user;
-
 
 }

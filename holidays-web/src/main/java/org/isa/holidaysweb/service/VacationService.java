@@ -7,8 +7,10 @@ import org.isa.holidaysweb.domain.Vacation;
 
 import org.isa.holidaysweb.dto.CreateVacationDto;
 import org.isa.holidaysweb.dto.VacationDto;
+import org.isa.holidaysweb.dto.VacationWithDetailsDto;
 import org.isa.holidaysweb.dto.ViewVacationDto;
 import org.isa.holidaysweb.entity.UserDAO;
+import org.isa.holidaysweb.entity.UserDetailsDAO;
 import org.isa.holidaysweb.entity.VacationDAO;
 import org.isa.holidaysweb.repository.UserRepository;
 import org.isa.holidaysweb.repository.VacationRepository;
@@ -21,7 +23,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class VacationService {
@@ -85,6 +89,45 @@ public class VacationService {
             LOGGER.info("Vacation not found");
         }
         return vacation;
+    }
+
+    public List<VacationDto> findAllVacationDto() {
+        List<VacationDAO> vacationsDAO = vacationRepository.findAll();
+        return vacationsDAO.stream().map(v -> modelMapper.map(v, VacationDto.class)).collect(Collectors.toList());
+
+    }
+
+    public List<VacationWithDetailsDto> findAllVacationForManager() {
+        List<VacationDAO> vacationDAOList = vacationRepository.findAll();
+        List<VacationWithDetailsDto> vacationWithDetailsDtoList = new ArrayList<>();
+        for (VacationDAO vacationDAO : vacationDAOList) {
+            VacationWithDetailsDto vacation = new VacationWithDetailsDto();
+            vacation.setVacationId(vacationDAO.getId());
+            vacation.setUserId(vacationDAO.getUser().getId());
+            vacation.setDateFrom(vacationDAO.getDateFrom());
+            vacation.setDateTo(vacationDAO.getDateTo());
+            vacation.setApproved(vacationDAO.isApproved());
+            UserDetailsDAO userDetails = vacationDAO.getUser().getUserDetails();
+            if(userDetails == null) {
+                userDetails = new UserDetailsDAO();
+            }
+            vacation.setFirstName(userDetails.getFirstName());
+            vacation.setLastName(userDetails.getLastName());
+            vacation.setUserName(vacationDAO.getUser().getUserName());
+            vacationWithDetailsDtoList.add(vacation);
+        }
+        return vacationWithDetailsDtoList;
+    }
+
+    public void approveVacation(UUID vacationId) {
+        Optional<VacationDAO> optionalVacation = vacationRepository.findById(vacationId);
+        if (optionalVacation.isPresent()) {
+            VacationDAO vacation = optionalVacation.get();
+            vacation.setApproved(true);
+            vacationRepository.save(vacation);
+        }
+
+
     }
 
 }

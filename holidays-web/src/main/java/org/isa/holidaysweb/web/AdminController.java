@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.isa.holidaysweb.domain.User;
 import org.isa.holidaysweb.dto.CreateUserDto;
 import org.isa.holidaysweb.dto.UserDto;
+import org.isa.holidaysweb.dto.VacationWithDetailsDto;
 import org.isa.holidaysweb.repository.UserRepository;
 import org.isa.holidaysweb.service.UserService;
+import org.isa.holidaysweb.service.VacationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -27,6 +30,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private VacationService vacationService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -102,6 +108,21 @@ public class AdminController {
 
         userService.remove(id);
         return new RedirectView("/userManager");
+    }
+
+    @GetMapping("/vacationManager")
+    public String vacationManager(Model model) {
+        List<VacationWithDetailsDto> allVacationForManager = vacationService.findAllVacationForManager();
+        model.addAttribute("vacations", allVacationForManager);
+
+        return "vacation-manager";
+    }
+
+    @RequestMapping("/approveVacation")
+    public RedirectView approveVacation(@RequestParam UUID id) {
+        LOGGER.info("Vacation ID: " + id);
+        vacationService.approveVacation(id);
+        return new RedirectView("/vacationManager");
     }
 
 
