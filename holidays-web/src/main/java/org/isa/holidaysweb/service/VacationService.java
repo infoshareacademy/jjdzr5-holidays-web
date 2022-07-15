@@ -74,6 +74,7 @@ public class VacationService {
         List<ViewVacationDto> viewVacationDtoList = new ArrayList<>();
         for (VacationDAO vacation : vacationDAOList) {
             ViewVacationDto viewVacationDto = new ViewVacationDto(vacation.getId(), vacation.getDateFrom(), vacation.getDateTo());
+            viewVacationDto.setApproved(vacation.isApproved());
             viewVacationDtoList.add(viewVacationDto);
         }
         return viewVacationDtoList;

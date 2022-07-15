@@ -44,6 +44,7 @@
               <tr>
                 <th>Date From</th>
                 <th>Date To</th>
+                <th>Approved by Administrator</th>
               </tr>
               </thead>
               <tbody>
@@ -51,6 +52,10 @@
               <tr th:each="vacation : ${vacationList}">
                 <td th:text="${vacation.dateFrom}"></td>
                 <td th:text="${vacation.dateTo}"></td>
+                <td th:switch="${vacation.approved}">
+                  <span th:case="true"><img th:src="@{/images/icons/check.png}" width="20"></span>
+                  <span th:case="false"><img th:src="@{/images/icons/cross.png}" width="20"></span>
+                <td>
                 <td>
                     <div th:if="${vacation.isInFuture()}">
                       <a th:href="@{'/deleteVacation?id=' + ${vacation.getId()}}" class="btn btn-primary">

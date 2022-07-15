@@ -1,6 +1,7 @@
 package org.isa.holidaysweb.dto;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -9,11 +10,13 @@ import java.util.UUID;
 
 @Data
 @Setter
+@Getter
 public class ViewVacationDto {
     private UUID id;
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private boolean isInFuture;
+    private boolean approved;
 
     public ViewVacationDto(UUID id, LocalDate dateFrom, LocalDate dateTo) {
         this.id = id;
