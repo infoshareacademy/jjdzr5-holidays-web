@@ -29,7 +29,7 @@
     <div class="padding-10"></div>
     <h3 class="style-2"> User Details</h3>
     <div class="card">
-        <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.enity.UserDetailsDAO"*/-->
+        <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.entity.UserDetailsDAO"*/-->
         <div class="card-body" th:switch="${userDetails}">
             <div th:case="null">
                 Nothing to show<br>
@@ -42,7 +42,7 @@
                 <p class="my-2">
                     <a href="/editDetails" class="btn btn-primary"><i> Edit Details </i></a>
                 </p>
-                <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.enity.UserDetailsDAO"*/-->
+                <!--/*@thymesVar id="userDetails" type="org.isa.holidaysweb.entity.UserDetailsDAO"*/-->
                 <div class="container">
                 <div class="row">
                     <table class="table table-striped" th:object="${userDetails}" style="width: 70%">

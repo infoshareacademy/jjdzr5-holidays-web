@@ -1,6 +1,6 @@
-package org.isa.holidaysweb.enity.manager;
+package org.isa.holidaysweb.entity.manager;
 
-import org.isa.holidaysweb.enity.VacationDAO;
+import org.isa.holidaysweb.entity.VacationDAO;
 
 import java.util.UUID;
 

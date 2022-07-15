@@ -1,6 +1,6 @@
-package org.isa.holidaysweb.enity.manager;
+package org.isa.holidaysweb.entity.manager;
 
-import org.isa.holidaysweb.enity.VacationDAO;
+import org.isa.holidaysweb.entity.UserDAO;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,18 +10,19 @@ import java.util.UUID;
 
 @Repository
 @Transactional
-public class DBVacationDAOManager implements VacationDAOManager {
+public class DBUserDAOManager implements UserDAOManager {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public void save(VacationDAO vacation) {
-        entityManager.persist(vacation);
+    public void save(UserDAO user) {
+        entityManager.persist(user);
     }
 
     @Override
-    public VacationDAO find(UUID id) {
-        return entityManager.find(VacationDAO.class, id);
+    public UserDAO find(UUID id) {
+        return entityManager.find(UserDAO.class, id);
     }
+
 }

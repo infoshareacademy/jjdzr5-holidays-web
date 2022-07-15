@@ -1,10 +1,6 @@
-package org.isa.holidaysweb.enity;
+package org.isa.holidaysweb.entity;
 
 import lombok.*;
-import org.hibernate.annotations.Type;
-import org.isa.holidaysweb.annotation.ValidDates;
-import org.isa.holidaysweb.domain.Vacation;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;

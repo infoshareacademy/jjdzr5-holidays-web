@@ -1,10 +1,9 @@
 package org.isa.holidaysweb.service;
 
-import org.isa.holidaysweb.domain.UserDetails;
 import org.isa.holidaysweb.dto.CreateUserDetailsDto;
 import org.isa.holidaysweb.dto.UserDetailsDto;
-import org.isa.holidaysweb.enity.UserDAO;
-import org.isa.holidaysweb.enity.UserDetailsDAO;
+import org.isa.holidaysweb.entity.UserDAO;
+import org.isa.holidaysweb.entity.UserDetailsDAO;
 import org.isa.holidaysweb.repository.UserDetailsRepository;
 import org.isa.holidaysweb.repository.UserRepository;
 import org.modelmapper.ModelMapper;

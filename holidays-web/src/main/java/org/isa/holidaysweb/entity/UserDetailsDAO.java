@@ -1,11 +1,10 @@
-package org.isa.holidaysweb.enity;
+package org.isa.holidaysweb.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity

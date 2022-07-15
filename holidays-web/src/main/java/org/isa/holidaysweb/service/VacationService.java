@@ -8,10 +8,9 @@ import org.isa.holidaysweb.domain.Vacation;
 import org.isa.holidaysweb.dto.CreateVacationDto;
 import org.isa.holidaysweb.dto.VacationDto;
 import org.isa.holidaysweb.dto.ViewVacationDto;
-import org.isa.holidaysweb.enity.UserDAO;
-import org.isa.holidaysweb.enity.VacationDAO;
+import org.isa.holidaysweb.entity.UserDAO;
+import org.isa.holidaysweb.entity.VacationDAO;
 import org.isa.holidaysweb.repository.UserRepository;
-import org.isa.holidaysweb.repository.VacationRepo;
 import org.isa.holidaysweb.repository.VacationRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -23,7 +22,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class VacationService {

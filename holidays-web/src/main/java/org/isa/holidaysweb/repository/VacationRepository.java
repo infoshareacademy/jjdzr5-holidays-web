@@ -1,6 +1,6 @@
 package org.isa.holidaysweb.repository;
 
-import org.isa.holidaysweb.enity.VacationDAO;
+import org.isa.holidaysweb.entity.VacationDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

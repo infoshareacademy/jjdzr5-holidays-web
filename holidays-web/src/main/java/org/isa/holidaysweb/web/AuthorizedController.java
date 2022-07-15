@@ -1,7 +1,6 @@
 package org.isa.holidaysweb.web;
 
 import lombok.RequiredArgsConstructor;
-import org.attoparser.trace.MarkupTraceEvent;
 import org.isa.holidaysweb.api.DayOffData;
 import org.isa.holidaysweb.config.userlogging.UserPrincipal;
 import org.isa.holidaysweb.domain.DayOff;
@@ -10,8 +9,8 @@ import org.isa.holidaysweb.domain.Vacation;
 import org.isa.holidaysweb.dto.CreateUserDetailsDto;
 import org.isa.holidaysweb.dto.CreateVacationDto;
 import org.isa.holidaysweb.dto.UserDetailsDto;
-import org.isa.holidaysweb.enity.UserDetailsDAO;
-import org.isa.holidaysweb.enity.VacationDAO;
+import org.isa.holidaysweb.entity.UserDetailsDAO;
+import org.isa.holidaysweb.entity.VacationDAO;
 import org.isa.holidaysweb.repository.UserDetailsRepository;
 import org.isa.holidaysweb.repository.VacationRepository;
 import org.isa.holidaysweb.service.UserDetailsService;
@@ -34,10 +33,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -176,6 +171,9 @@ public class AuthorizedController {
         }
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        if (file.isEmpty()) {
+            fileName = "default.png";
+        }
         userDetails.setProfilePicture(fileName);
 
         CreateUserDetailsDto createUserDetailsDto = new CreateUserDetailsDto(
@@ -186,9 +184,10 @@ public class AuthorizedController {
                 userDetails.getProfilePicture());
         UserDetailsDto userDetailsDto = userDetailsService.createUserDetails(createUserDetailsDto);
 
-        String uploadDir = "src/main/resources/static/images";
-        FileUploadUtil.saveFile(uploadDir, fileName, file);
-
+        if(fileName != "default.png") {
+            String uploadDir = "src/main/resources/static/images/";
+            FileUploadUtil.saveFile(uploadDir, fileName, file);
+        }
         return "user-details";
     }
 
@@ -207,14 +206,20 @@ public class AuthorizedController {
     }
 
     @PostMapping("/editDetails")
-    public String editDetailsForm(@ModelAttribute @Valid UserDetails userDetails,
+    public String editDetailsForm(@RequestParam("file") MultipartFile file,
+                                  @ModelAttribute @Valid UserDetails userDetails,
                                   BindingResult result,
-                                  Authentication authentication) {
+                                  Authentication authentication) throws IOException {
         if(result.hasErrors()) {
             return "update-details-form";
         }
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
         UUID userId = principal.getId();
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        if (file.isEmpty()) {
+            fileName = userDetailsRepository.findUserDetailsDAOByUser_Id(userId).get().getProfilePicture();
+        }
+        userDetails.setProfilePicture(fileName);
 
         UserDetailsDto userDetailsDto = new UserDetailsDto(
                 userDetails.getFirstName(),
@@ -223,6 +228,11 @@ public class AuthorizedController {
                 userDetails.getProfilePicture());
 
         userDetailsService.updateUserDetails(userDetailsDto, userId);
+
+        if(fileName != userDetailsRepository.findUserDetailsDAOByUser_Id(userId).get().getProfilePicture()) {
+            String uploadDir = "src/main/resources/static/images/";
+            FileUploadUtil.saveFile(uploadDir, fileName, file);
+        }
         return "user-details";
     }
 }

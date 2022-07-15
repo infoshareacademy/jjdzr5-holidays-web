@@ -2,7 +2,7 @@ package org.isa.holidaysweb.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.isa.holidaysweb.enity.Departament;
+import org.isa.holidaysweb.entity.Departament;
 
 import java.util.UUID;
 

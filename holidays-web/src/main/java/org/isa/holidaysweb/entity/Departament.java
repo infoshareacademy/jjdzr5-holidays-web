@@ -1,4 +1,4 @@
-package org.isa.holidaysweb.enity;
+package org.isa.holidaysweb.entity;
 
 public enum Departament {
     SALES("Sales"),

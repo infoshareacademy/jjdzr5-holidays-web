@@ -2,7 +2,7 @@ package org.isa.holidaysweb.service;
 
 import org.isa.holidaysweb.dto.CreateUserDto;
 import org.isa.holidaysweb.dto.UserDto;
-import org.isa.holidaysweb.enity.UserDAO;
+import org.isa.holidaysweb.entity.UserDAO;
 import org.isa.holidaysweb.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

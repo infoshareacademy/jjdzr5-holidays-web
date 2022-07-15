@@ -2,10 +2,10 @@ package org.isa.holidaysweb.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.isa.holidaysweb.enity.Departament;
+import org.isa.holidaysweb.entity.Departament;
 
 import javax.validation.constraints.Size;
-import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 public class UserDetails {
