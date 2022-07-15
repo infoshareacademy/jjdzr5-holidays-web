@@ -27,28 +27,53 @@
         </div>
     </nav>
     <div class="padding-10"></div>
-    <h3 class="style-2"> User Details</h3>
+    <h3 class="style-2"> Users list</h3>
     <div class="card">
         <div class="card-body">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">User Manager</h5>
-                            <a th:href="@{/userManager}" class="btn btn-primary" type="button">Open</a>
-                        </div>
+            <!--/*@thymesVar id="users" type="org.isa.holidaysweb.service.UserService"*/-->
+            <div th:switch="${users}" class="container my-2">
+                <p class="my-2">
+                    <a th:href="@{/addNewUser}" class="btn btn-primary"><i> Add new user </i></a>
+                </p>
+                <div class="padding-10"></div>
+                <div class="col-md-10">
+                    <h2 th:case="null">No record found !!</h2>
+                    <div th:case="*">
+                        <table class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Department</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--/*@thymesVar id="user" type="org.isa.holidaysweb.dto.UserWithDetailsDto"*/-->
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.userName}"></td>
+                                <td th:text="${user.role}"></td>
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td th:text="${user.departament != null} ? ${user.departament.displayValue} : ' '"></td>
+                                <td>
+                                    <a th:href="@{/}" class="btn btn-outline-danger">
+                                        Delete
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/}" class="btn btn-secondary">
+                                        Edit
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Vacation Manager</h5>
-                                <a th:href="@{/vacationManager}" class="btn btn-primary" type="button">Open</a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
-        </div>
         </div>
     </div>
     <div class="padding-bottom"></div>

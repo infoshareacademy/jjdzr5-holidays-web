@@ -2,6 +2,7 @@ package org.isa.holidaysweb.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.isa.holidaysweb.entity.UserDetailsDAO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,4 +27,5 @@ public class UserDto {
         }
         return new ArrayList<>();
     }
+
 }
