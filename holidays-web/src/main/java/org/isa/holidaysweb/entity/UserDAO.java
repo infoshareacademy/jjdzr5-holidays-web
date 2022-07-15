@@ -51,7 +51,7 @@ public class UserDAO {
     @Column(name = COLUMN_PREFIX + "is_active")
     private boolean isActive;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<VacationDAO> vacationList;
 
     public List<String> getRolesList() {
@@ -60,6 +60,9 @@ public class UserDAO {
         }
         return new ArrayList<>();
     }
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private UserDetailsDAO userDetails;
 
 }
 
