@@ -12,10 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -68,6 +65,28 @@ public class UserService {
             usersWithDetailsDto.add(userWithDetailsDto);
         }
         return usersWithDetailsDto;
+
+    }
+
+    public UserDto findById(UUID id) {
+        UserDAO userDAO = userRepository.findById(id).get();
+        return modelMapper.map(userDAO, UserDto.class);
+    }
+
+    public UserDto updateUserInfo(UserDto userDto) {
+        UserDAO userDAO = userRepository.findById(userDto.getId()).get();
+        userDAO.setUserName(userDto.getUserName());
+        userDAO.setPassword(userDto.getPassword());
+        userDAO.setRole(userDto.getRole());
+        userRepository.save(userDAO);
+        return modelMapper.map(userDAO, UserDto.class);
+    }
+
+    public void remove(UUID id) {
+        Optional<UserDAO> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            userRepository.delete(optionalUser.get());
+        }
 
     }
 }

@@ -33,7 +33,7 @@
             <!--/*@thymesVar id="users" type="org.isa.holidaysweb.service.UserService"*/-->
             <div th:switch="${users}" class="container my-2">
                 <p class="my-2">
-                    <a th:href="@{/addNewUser}" class="btn btn-primary"><i> Add new user </i></a>
+                    <a th:href="@{/createNewUser}" class="btn btn-primary"><i> Add new user </i></a>
                 </p>
                 <div class="padding-10"></div>
                 <div class="col-md-10">
@@ -58,12 +58,12 @@
                                 <td th:text="${user.lastName}"></td>
                                 <td th:text="${user.departament != null} ? ${user.departament.displayValue} : ' '"></td>
                                 <td>
-                                    <a th:href="@{/}" class="btn btn-outline-danger">
+                                    <a th:href="@{'/deleteUser?id=' + ${user.userId}}" class="btn btn-outline-danger">
                                         Delete
                                     </a>
                                 </td>
                                 <td>
-                                    <a th:href="@{/}" class="btn btn-secondary">
+                                    <a th:href="@{'/updateUser?id=' + ${user.userId}}" class="btn btn-secondary">
                                         Edit
                                     </a>
                                 </td>

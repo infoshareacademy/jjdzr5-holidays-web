@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public class User {
 
+    private UUID userId;
+
 
     @Size(min = 4, max = 25, message = "{validation.userName}")
     @NotBlank(message = "{validation.blank}")
@@ -15,6 +17,15 @@ public class User {
     @Size(min = 8, max = 25, message = "{validation.password}")
     private String password;
 
+    private String role;
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
 
     public String getUserName() {
         return userName;
@@ -26,6 +37,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setPassword(String password) {
