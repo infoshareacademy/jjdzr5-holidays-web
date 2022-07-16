@@ -31,6 +31,9 @@ body, html {
     background: radial-gradient(#44006b, #ad1fff);
     overflow: hidden;
 }
+.my-zk {
+    margin-top: -45px;
+}
 
 #radius-shape-2 {
     border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
@@ -53,7 +56,7 @@ body, html {
 .style-1 {
     color: hsl(218, 81%, 95%);
 }
-#style-2 {
+.style-2 {
     color: hsl(218, 81%, 75%);
 }
 .style-3 {
@@ -69,16 +72,24 @@ body, html {
     margin: 0 auto;
 }
 
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
+.form-signin-1 {
+    max-width: 430px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox
+.form-signin-1 .form-signin-heading, .form-signin-1 .checkbox {
     margin-bottom: 10px;
 }
 
-.form-signin .checkbox {
+.form-signin .checkbox,
+.form-signin-1 .checkbox {
     font-weight: normal;
 }
 
-.form-signin .form-control {
+.form-signin .form-control
+.form-signin-1 .form-control {
     position: relative;
     height: auto;
     -webkit-box-sizing: border-box;
@@ -114,6 +125,9 @@ body, html {
 .padding-10 {
     padding: 10px;
 }
+.padding-5 {
+    padding: 5px;
+}
 a:hover {
     text-decoration: none;
 }
@@ -126,6 +140,9 @@ a:focus {
 }
 .btn-width-301 {
     width: 300px;
+}
+.btn-width-302 {
+    width: 400px;
 }
 .text-warning-my {
     --bs-text-opacity: 1;
@@ -146,4 +163,15 @@ button.text-warning-my a:hover {
     float: right;
     margin-top: -10px;
     margin-right: 5px;
+}
+.fix-logout {
+    position: absolute;
+    margin-left: 340px;
+    margin-top: -36px;
+}
+.margin-10 {
+    margin-bottom: 10px ;
+}
+.shadows {
+    text-shadow: 1px 1px 1px hsla(0, 20%, 50%, 0.5);
 }

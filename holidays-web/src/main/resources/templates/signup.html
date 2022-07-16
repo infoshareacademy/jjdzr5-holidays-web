@@ -33,26 +33,33 @@
       <div class="padding-10"></div>
     </div>
     <div class="container">
-        <form method="POST" class="form-signin" th:object="${user}" th:action="@{/new_account}">
+        <div class="card bg-glass">
+            <div class="card-body">
+        <form method="POST" class="form-signin-1" th:object="${user}" th:action="@{/new_account}">
             <h2 class="form-signin-heading text-info">Create your account</h2>
-            <div class="form-group">
-                <input type="text" th:field="*{userName}" class="form-control" placeholder="Username"
-                       autofocus="true">
+            <div class="form-group btn-width-302">
+                <input type="text" th:field="*{userName}" class="form-control" placeholder="Username" autofocus="true">
+                <div class="padding-5"></div>
                 <span class="has-error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
             </div>
-
-            <div class="form-group">
+            <div class="padding-5"></div>
+            <div class="form-group btn-width-302">
                 <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
+                <div class="padding-5"></div>
                 <span class="has-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             </div>
-
-            <div class="form-group">
-                <input type="password" class="form-control" id="repeat_password"
-                            placeholder="Confirm your password">
+            <div class="padding-5"></div>
+            <div class="form-group btn-width-302">
+                <input type="password" th:field="*{passwordConfirm}" class="form-control" placeholder="Password Confirm">
+                <div class="padding-5"></div>
+                <span class="has-error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
+                <div class="padding-5"></div>
             </div>
 
-            <button class="btn btn-lg btn-primary btn-block btn-width-301" type="submit">Submit</button>
+            <button class="btn btn-lg btn-primary btn-block btn-width-302" type="submit">Submit</button>
         </form>
+            </div>
+        </div>
 
         <div class="padding-bottom"></div>
         <nav class="navbar navbar-dark bg-dark">

@@ -1,5 +1,7 @@
 package org.isa.holidaysweb.domain;
 
+
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -15,7 +17,21 @@ public class User {
     private String userName;
 
     @Size(min = 8, max = 25, message = "{validation.password}")
+    @NotBlank(message = "{validation.blank}")
     private String password;
+
+    @Transient
+    @Size(min = 8, max = 25, message = "{validation.password.match}")
+    @NotBlank(message = "{validation.blank}")
+    private String passwordConfirm;
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
 
     private String role;
 
