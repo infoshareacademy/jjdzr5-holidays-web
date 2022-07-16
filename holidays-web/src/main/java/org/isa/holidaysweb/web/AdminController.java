@@ -125,6 +125,13 @@ public class AdminController {
         return new RedirectView("/vacationManager");
     }
 
+    @RequestMapping("/cancelVacation")
+    public RedirectView cancelVacation(@RequestParam UUID id) {
+        LOGGER.info("Canceling Vacation. Vacation id: " + id);
+        vacationService.cancelVacation(id);
+        return new RedirectView("/vacationManager");
+    }
+
 
 
 

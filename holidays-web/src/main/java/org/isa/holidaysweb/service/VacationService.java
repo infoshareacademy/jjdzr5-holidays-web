@@ -108,6 +108,7 @@ public class VacationService {
             vacation.setDateFrom(vacationDAO.getDateFrom());
             vacation.setDateTo(vacationDAO.getDateTo());
             vacation.setApproved(vacationDAO.isApproved());
+            vacation.setInFuture(!vacationDAO.getDateFrom().isBefore(LocalDate.now()));
             UserDetailsDAO userDetails = vacationDAO.getUser().getUserDetails();
             if(userDetails == null) {
                 userDetails = new UserDetailsDAO();
@@ -127,8 +128,15 @@ public class VacationService {
             vacation.setApproved(true);
             vacationRepository.save(vacation);
         }
+    }
 
-
+    public void cancelVacation(UUID vacationId) {
+        Optional<VacationDAO> optionalVacation = vacationRepository.findById(vacationId);
+        if (optionalVacation.isPresent()) {
+            VacationDAO vacation = optionalVacation.get();
+            vacation.setApproved(false);
+            vacationRepository.save(vacation);
+        }
     }
 
 }

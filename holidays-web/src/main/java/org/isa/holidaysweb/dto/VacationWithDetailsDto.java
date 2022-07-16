@@ -17,6 +17,8 @@ public class VacationWithDetailsDto {
     private String lastName;
     private String userName;
     private UUID vacationId;
+    private boolean isInFuture;
+
 
 
 
@@ -29,5 +31,6 @@ public class VacationWithDetailsDto {
         this.lastName = lastName;
         this.userName = userName;
         this.vacationId = vacationId;
+
     }
 }

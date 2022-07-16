@@ -61,10 +61,21 @@
                                 <td th:switch="${vacation.approved}">
                                     <span th:case="true"><img th:src="@{/images/icons/check.png}" width="20"></span>
                                     <span th:case="false"><img th:src="@{/images/icons/cross.png}" width="20"></span>
-                                <td>
-                                    <a th:href="@{'/approveVacation?id=' + ${vacation.getVacationId()}}" class="btn btn-outline-danger">
-                                        Approve
-                                    </a>
+                                </td>
+                                <td th:if="${vacation.isInFuture}">
+                                <div th:switch="${vacation.approved}">
+                                    <span th:case="false">
+                                        <a th:href="@{'/approveVacation?id=' + ${vacation.getVacationId()}}" class="btn btn-outline-success">
+                                            Approve
+                                        </a>
+                                    </span>
+                                    <span th:case="true">
+                                        <a th:href="@{'/cancelVacation?id=' + ${vacation.getVacationId()}}" class="btn btn-outline-danger">
+                                            Cancel
+                                        </a>
+                                    </span>
+                                </div>
+                                </td>
                                 </td>
                             </tr>
                             </tbody>
