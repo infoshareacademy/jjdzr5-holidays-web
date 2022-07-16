@@ -18,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -66,7 +67,7 @@ public class VacationService {
 
 
     public List<ViewVacationDto> findUserVacation(UUID userId) {
-        List<VacationDAO> vacationDAOlist = vacationRepository.findVacationDAOByUser_Id(userId);
+        List<VacationDAO> vacationDAOlist = vacationRepository.findVacationDAOByUser_IdOrderByDateFrom(userId);
         return mapToViewVacation(vacationDAOlist);
     }
 
@@ -99,7 +100,8 @@ public class VacationService {
     }
 
     public List<VacationWithDetailsDto> findAllVacationForManager() {
-        List<VacationDAO> vacationDAOList = vacationRepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.ASC, "dateFrom");
+        List<VacationDAO> vacationDAOList = vacationRepository.findAll(sort);
         List<VacationWithDetailsDto> vacationWithDetailsDtoList = new ArrayList<>();
         for (VacationDAO vacationDAO : vacationDAOList) {
             VacationWithDetailsDto vacation = new VacationWithDetailsDto();

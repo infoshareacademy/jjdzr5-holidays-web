@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface VacationRepository extends JpaRepository<VacationDAO, UUID> {
     List<VacationDAO> findVacationDAOByUser_Id(UUID userId);
+    List<VacationDAO> findVacationDAOByUser_IdOrderByDateFrom(UUID userId);
 }
